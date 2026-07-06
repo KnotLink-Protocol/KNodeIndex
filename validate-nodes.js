@@ -10,7 +10,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const NODES_DIR = path.join(__dirname, 'nodes');
+const NODES_DIR = __dirname;
 const VALID_TYPES = ['plugin', 'standalone'];
 const REQUIRED_FILES = {
     plugin: ['plugin_manifest.json', 'FuncList.json', 'logo.png'],
@@ -29,7 +29,7 @@ function validate() {
     console.log('🔍 KnotLink 节点校验\n');
 
     if (!fs.existsSync(NODES_DIR)) {
-        error('nodes/ 目录不存在');
+        error('plugin/ 或 standalone/ 目录不存在');
         process.exit(1);
     }
 

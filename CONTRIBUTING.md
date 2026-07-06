@@ -7,10 +7,9 @@
 每个节点一个文件夹，放在对应类型目录下：
 
 ```
-nodes/
-├── plugin/              ← 插入式节点（由 KnotHub 启动管理）
+plugin/              ← 插入式节点（由 KnotHub 启动管理）
 │   └── YourNode-作者名/  ← 文件夹命名：节点名-作者
-└── standalone/          ← 独立式节点（独立进程运行）
+standalone/          ← 独立式节点（独立进程运行）
     └── YourNode-作者名/
 ```
 
@@ -77,7 +76,7 @@ nodes/
 ## PR 提交流程
 
 1. Fork 本仓库
-2. 在 `nodes/plugin/` 或 `nodes/standalone/` 下创建节点文件夹
+2. 在 `plugin/` 或 `standalone/` 下创建节点文件夹
 3. 放入必需文件
 4. 本地验证：`node build-nodes.js`（确保无报错）
 5. 提交 PR 至 [KNodeIndex](https://github.com/KnotLink-Protocol/KNodeIndex)，标题格式：`[节点] 节点名 - 类型`
