@@ -1,0 +1,9 @@
+{
+  "app_id": "0x00000015",
+  "plugin_name": "系统操作工具",
+  "author": "HXH",
+  "version": "v1.0.0",
+  "description": "操作系统功能",
+  "auto_start": "false",
+  "exe_path": "sysOpTool.exe"
+}
