@@ -21,7 +21,7 @@ standalone/          ← 独立式节点（独立进程运行）
 | `standalone_manifest.json` | 节点元信息 | — | ✅ 必须 |
 | `FuncList.json` | 功能接口定义 | ✅ 必须 | ✅ 必须 |
 | `logo.png` | 节点图标（≥128×128） | ✅ 必须 | ✅ 必须 |
-| `README.md` | 使用说明（须包含官网/下载链接） | ✅ 必须 | ✅ 必须 |
+| `README.md` | 使用说明（须包含官网/下载链接，无需列出接口——接口在 FuncList.json 中定义） | ✅ 必须 | ✅ 必须 |
 
 ## plugin_manifest.json 格式
 
