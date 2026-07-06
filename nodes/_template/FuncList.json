@@ -1,0 +1,31 @@
+{
+  "appName": "你的节点名",
+  "openSocket": {
+    "YourFunction": {
+      "appID": "0x00000000",
+      "openSocketID": "0x00000010",
+      "description": "功能描述",
+      "args": {
+        "paramName": {
+          "type": "input",
+          "description": "参数说明",
+          "defaultVal": ""
+        }
+      },
+      "returns": []
+    }
+  },
+  "signal": {
+    "YourSignal": {
+      "appID": "0x00000000",
+      "signalID": "0x00000011",
+      "description": "信号描述",
+      "returns": {
+        "fieldName": {
+          "description": "字段说明",
+          "verification": ""
+        }
+      }
+    }
+  }
+}

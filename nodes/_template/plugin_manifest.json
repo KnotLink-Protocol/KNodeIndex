@@ -1,0 +1,9 @@
+{
+  "app_id": "0x00000000",
+  "plugin_name": "你的节点名",
+  "author": "你的名字",
+  "version": "v1.0.0",
+  "description": "一句话描述你的节点功能",
+  "auto_start": "false",
+  "exe_path": "your-app.exe"
+}

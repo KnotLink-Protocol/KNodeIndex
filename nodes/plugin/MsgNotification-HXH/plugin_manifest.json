@@ -1,0 +1,9 @@
+{
+    "app_id": "0x00000014",
+    "author": "HXH",
+    "auto_start": "true",
+    "description": "在屏幕顶端弹出消息窗口",
+    "exe_path": "MsgNotification.exe",
+    "plugin_name": "消息提醒",
+    "version": "v1.0.0"
+}
