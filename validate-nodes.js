@@ -107,6 +107,14 @@ function validate() {
                         } catch (e) { /* already reported */ }
                     }
 
+                    // 检查顶层元字段
+                    if (!funcList.specVersion) {
+                        error('FuncList 缺少 specVersion（遵循的规范版本，如 "1.0"）');
+                    }
+                    if (!funcList.manifestVersion) {
+                        error('FuncList 缺少 manifestVersion（清单自身版本号，如 "1.0.0"）');
+                    }
+
                     // 检查 openSocket
                     if (funcList.openSocket) {
                         for (const [name, sock] of Object.entries(funcList.openSocket)) {

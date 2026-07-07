@@ -1,5 +1,7 @@
 {
   "appName": "你的节点名",
+  "specVersion": "1.0",
+  "manifestVersion": "1.0.0",
   "openSocket": {
     "YourFunction": {
       "appID": "0x00000000",

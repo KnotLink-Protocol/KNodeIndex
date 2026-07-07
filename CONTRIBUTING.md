@@ -42,6 +42,8 @@ standalone/          ← 独立式节点（独立进程运行）
 ```json
 {
   "appName": "节点名称",
+  "specVersion": "1.0",
+  "manifestVersion": "1.0.0",
   "openSocket": {
     "接口名": {
       "appID": "0x00000014",
@@ -80,6 +82,16 @@ standalone/          ← 独立式节点（独立进程运行）
 3. 放入必需文件
 4. 本地验证：`node build-nodes.js`（确保无报错）
 5. 提交 PR 至 [KNodeIndex](https://github.com/KnotLink-Protocol/KNodeIndex)，标题格式：`[节点] 节点名 - 类型`
+
+### 顶层字段
+
+| 字段 | 必填 | 说明 |
+|------|:---:|------|
+| `appName` | 是 | 节点名称 |
+| `specVersion` | 是 | 遵循的 KnotLink 规范版本（如 `"1.0"`） |
+| `manifestVersion` | 是 | 本 FuncList 自身的版本号（如 `"1.0.0"`） |
+| `openSocket` | 否 | 对外暴露的调用接口 |
+| `signal` | 否 | 对外发送的信号 |
 
 ## AppID / OpenSocketID 分配
 
