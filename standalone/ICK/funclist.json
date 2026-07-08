@@ -1,0 +1,355 @@
+{
+  "appName": "Ink Canvas",
+  "openSocket": {
+    "GetStatus": {
+      "appID": "0x00000031",
+      "openSocketID": "0x00000021",
+      "description": "获取 Ink Canvas 当前状态",
+      "args": {
+        "action": {
+          "type": "static",
+          "value": "GetStatus",
+          "description": "操作指令"
+        }
+      },
+      "returns": [
+        ["status", "状态（Successful/Error）"],
+        ["visible", "墨迹画布可见状态（true/false）"],
+        ["isPenMode", "是否为笔模式（true/false）"],
+        ["isEraserMode", "是否为橡皮擦模式（true/false）"]
+      ]
+    },
+    "GetVersion": {
+      "appID": "0x00000031",
+      "openSocketID": "0x00000021",
+      "description": "获取 Ink Canvas 版本信息",
+      "args": {
+        "action": {
+          "type": "static",
+          "value": "GetVersion",
+          "description": "操作指令"
+        }
+      },
+      "returns": [
+        ["status", "状态（Successful/Error）"],
+        ["version", "版本号"]
+      ]
+    },
+    "SwitchToPen": {
+      "appID": "0x00000031",
+      "openSocketID": "0x00000021",
+      "description": "切换到笔模式",
+      "args": {
+        "action": {
+          "type": "static",
+          "value": "SwitchToPen",
+          "description": "操作指令"
+        }
+      },
+      "returns": [
+        ["status", "状态（Successful/Error）"]
+      ]
+    },
+    "SwitchToEraser": {
+      "appID": "0x00000031",
+      "openSocketID": "0x00000021",
+      "description": "切换到橡皮擦模式",
+      "args": {
+        "action": {
+          "type": "static",
+          "value": "SwitchToEraser",
+          "description": "操作指令"
+        }
+      },
+      "returns": [
+        ["status", "状态（Successful/Error）"]
+      ]
+    },
+    "SwitchToCursor": {
+      "appID": "0x00000031",
+      "openSocketID": "0x00000021",
+      "description": "切换到光标/选择模式（隐藏墨迹画布）",
+      "args": {
+        "action": {
+          "type": "static",
+          "value": "SwitchToCursor",
+          "description": "操作指令"
+        }
+      },
+      "returns": [
+        ["status", "状态（Successful/Error）"]
+      ]
+    },
+    "Show": {
+      "appID": "0x00000031",
+      "openSocketID": "0x00000021",
+      "description": "显示墨迹画布",
+      "args": {
+        "action": {
+          "type": "static",
+          "value": "Show",
+          "description": "操作指令"
+        }
+      },
+      "returns": [
+        ["status", "状态（Successful/Error）"]
+      ]
+    },
+    "Hide": {
+      "appID": "0x00000031",
+      "openSocketID": "0x00000021",
+      "description": "隐藏墨迹画布",
+      "args": {
+        "action": {
+          "type": "static",
+          "value": "Hide",
+          "description": "操作指令"
+        }
+      },
+      "returns": [
+        ["status", "状态（Successful/Error）"]
+      ]
+    },
+    "ToggleDrawpad": {
+      "appID": "0x00000031",
+      "openSocketID": "0x00000021",
+      "description": "切换墨迹画布可见性",
+      "args": {
+        "action": {
+          "type": "static",
+          "value": "ToggleDrawpad",
+          "description": "操作指令"
+        }
+      },
+      "returns": [
+        ["status", "状态（Successful/Error）"]
+      ]
+    },
+    "Clear": {
+      "appID": "0x00000031",
+      "openSocketID": "0x00000021",
+      "description": "清空画布",
+      "args": {
+        "action": {
+          "type": "static",
+          "value": "Clear",
+          "description": "操作指令"
+        }
+      },
+      "returns": [
+        ["status", "状态（Successful/Error）"]
+      ]
+    },
+    "Undo": {
+      "appID": "0x00000031",
+      "openSocketID": "0x00000021",
+      "description": "撤销上一步操作",
+      "args": {
+        "action": {
+          "type": "static",
+          "value": "Undo",
+          "description": "操作指令"
+        }
+      },
+      "returns": [
+        ["status", "状态（Successful/Error）"]
+      ]
+    },
+    "Redo": {
+      "appID": "0x00000031",
+      "openSocketID": "0x00000021",
+      "description": "重做上一步撤销的操作",
+      "args": {
+        "action": {
+          "type": "static",
+          "value": "Redo",
+          "description": "操作指令"
+        }
+      },
+      "returns": [
+        ["status", "状态（Successful/Error）"]
+      ]
+    },
+    "ScreenMode": {
+      "appID": "0x00000031",
+      "openSocketID": "0x00000021",
+      "description": "切换到屏幕模式（透明背景，可看到桌面）",
+      "args": {
+        "action": {
+          "type": "static",
+          "value": "ScreenMode",
+          "description": "操作指令"
+        }
+      },
+      "returns": [
+        ["status", "状态（Successful/Error）"]
+      ]
+    },
+    "BoardMode": {
+      "appID": "0x00000031",
+      "openSocketID": "0x00000021",
+      "description": "切换到白板/黑板模式（颜色跟随用户主题设置）",
+      "args": {
+        "action": {
+          "type": "static",
+          "value": "BoardMode",
+          "description": "操作指令"
+        }
+      },
+      "returns": [
+        ["status", "状态（Successful/Error）"]
+      ]
+    },
+    "MoveToCenter": {
+      "appID": "0x00000031",
+      "openSocketID": "0x00000021",
+      "description": "移动悬浮工具栏到屏幕中央",
+      "args": {
+        "action": {
+          "type": "static",
+          "value": "MoveToCenter",
+          "description": "操作指令"
+        }
+      },
+      "returns": [
+        ["status", "状态（Successful/Error）"]
+      ]
+    },
+    "MoveToLeft": {
+      "appID": "0x00000031",
+      "openSocketID": "0x00000021",
+      "description": "移动悬浮工具栏到屏幕左侧",
+      "args": {
+        "action": {
+          "type": "static",
+          "value": "MoveToLeft",
+          "description": "操作指令"
+        }
+      },
+      "returns": [
+        ["status", "状态（Successful/Error）"]
+      ]
+    },
+    "MoveToRight": {
+      "appID": "0x00000031",
+      "openSocketID": "0x00000021",
+      "description": "移动悬浮工具栏到屏幕右侧",
+      "args": {
+        "action": {
+          "type": "static",
+          "value": "MoveToRight",
+          "description": "操作指令"
+        }
+      },
+      "returns": [
+        ["status", "状态（Successful/Error）"]
+      ]
+    },
+    "MoveToTop": {
+      "appID": "0x00000031",
+      "openSocketID": "0x00000021",
+      "description": "移动悬浮工具栏到屏幕顶部",
+      "args": {
+        "action": {
+          "type": "static",
+          "value": "MoveToTop",
+          "description": "操作指令"
+        }
+      },
+      "returns": [
+        ["status", "状态（Successful/Error）"]
+      ]
+    },
+    "MoveToBottom": {
+      "appID": "0x00000031",
+      "openSocketID": "0x00000021",
+      "description": "移动悬浮工具栏到屏幕底部",
+      "args": {
+        "action": {
+          "type": "static",
+          "value": "MoveToBottom",
+          "description": "操作指令"
+        }
+      },
+      "returns": [
+        ["status", "状态（Successful/Error）"]
+      ]
+    },
+    "Collapse": {
+      "appID": "0x00000031",
+      "openSocketID": "0x00000021",
+      "description": "收起悬浮工具栏（折叠为 emoji 图标）",
+      "args": {
+        "action": {
+          "type": "static",
+          "value": "Collapse",
+          "description": "操作指令"
+        }
+      },
+      "returns": [
+        ["status", "状态（Successful/Error）"]
+      ]
+    },
+    "Expand": {
+      "appID": "0x00000031",
+      "openSocketID": "0x00000021",
+      "description": "展开悬浮工具栏（显示全部控件）",
+      "args": {
+        "action": {
+          "type": "static",
+          "value": "Expand",
+          "description": "操作指令"
+        }
+      },
+      "returns": [
+        ["status", "状态（Successful/Error）"]
+      ]
+    },
+    "DrawFunction": {
+      "appID": "0x00000031",
+      "openSocketID": "0x00000021",
+      "description": "绘制函数图像 (y=f(x))",
+      "args": {
+        "action": {
+          "type": "static",
+          "value": "DrawFunction",
+          "description": "操作指令"
+        },
+        "expression": {
+          "type": "input",
+          "defaultVal": "sin(x)",
+          "description": "数学表达式，支持 LaTeX"
+        },
+        "xMin": {
+          "type": "input",
+          "defaultVal": "-6.28",
+          "description": "x 最小值"
+        },
+        "xMax": {
+          "type": "input",
+          "defaultVal": "6.28",
+          "description": "x 最大值"
+        },
+        "step": {
+          "type": "input",
+          "defaultVal": "0.05",
+          "description": "采样步长 (越小越平滑)"
+        },
+        "offsetX": {
+          "type": "input",
+          "defaultVal": "0",
+          "description": "原点 X 像素偏移 (相对画布中心)"
+        },
+        "offsetY": {
+          "type": "input",
+          "defaultVal": "0",
+          "description": "原点 Y 像素偏移 (相对画布中心, 正=上)"
+        }
+      },
+      "returns": [
+        ["status", "状态（Successful/Error）"]
+      ]
+    }
+  },
+  "signal": {}
+}

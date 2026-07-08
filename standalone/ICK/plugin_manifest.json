@@ -1,0 +1,9 @@
+{
+  "app_id": "0x00000031",
+  "plugin_name": "ICK",
+  "author": "XY Wang & HXH",
+  "version": "v1.0.0",
+  "description": "提供屏幕批注相关功能",
+  "auto_start": "false",
+  "exe_path": "Ink Canvas.exe"
+}
