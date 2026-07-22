@@ -50,7 +50,7 @@ KNodeIndex/
 
 - `returns` 格式：`[["描述", "字段名"], ...]`（数组的数组）
 - `signal.returns` 格式：`{ "字段名": { "description": "...", "verification": "..." } }`（对象）
-- AppID / OpenSocketID / SignalID 需全局唯一，格式 `0x` + 8 位十六进制
+- AppID 需全局唯一，格式为倒置域名（如 `com.example.myapp`）；OpenSocketID / SignalID 使用小写语义化名称（如 `search`、`showmsg`）
 
 ## 提交前校验
 

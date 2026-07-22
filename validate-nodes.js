@@ -25,6 +25,19 @@ function error(msg) { console.error(`  ❌ ${msg}`); errors++; }
 function warn(msg) { console.warn(`  ⚠️  ${msg}`); warnings++; }
 function ok(msg) { console.log(`  ✅ ${msg}`); }
 
+// 倒置域名格式：com.example.app
+const REVERSE_DOMAIN_RE = /^[a-z][a-z0-9]*(\.[a-z][a-z0-9]*)+$/;
+// 旧十六进制格式：0x00000000（兼容）
+const HEX_ID_RE = /^0x[0-9A-Fa-f]{8}$/;
+
+function isValidAppId(id) {
+    return REVERSE_DOMAIN_RE.test(id) || HEX_ID_RE.test(id);
+}
+function isValidSocketId(id) {
+    // 语义化名称（如 search、showmsg）或旧十六进制格式
+    return /^[a-z][a-z0-9_]*$/.test(id) || HEX_ID_RE.test(id);
+}
+
 function validate() {
     console.log('🔍 KnotLink 节点校验\n');
 
@@ -80,9 +93,9 @@ function validate() {
                             warn(`${path.basename(manifestFile)} 缺少字段: ${field}`);
                         }
                     }
-                    // 验证 app_id 格式
-                    if (manifest.app_id && !/^0x[0-9A-Fa-f]{8}$/.test(manifest.app_id)) {
-                        warn(`app_id 格式异常: ${manifest.app_id}（应为 0x 开头 + 8 位十六进制）`);
+                    // 验证 app_id 格式（倒置域名 或 0x 十六进制）
+                    if (manifest.app_id && !isValidAppId(manifest.app_id)) {
+                        warn(`app_id 格式异常: ${manifest.app_id}（应为倒置域名如 cn.knotlink.xxx，或 0x 开头 + 8 位十六进制）`);
                     }
                 } catch (e) {
                     error(`${path.basename(manifestFile)} JSON 解析失败: ${e.message}`);
@@ -124,8 +137,8 @@ function validate() {
                             if (!sock.description) {
                                 warn(`接口 "${name}" 缺少 description`);
                             }
-                            // 验证 ID 格式
-                            if (sock.openSocketID && !/^0x[0-9A-Fa-f]{8}$/.test(sock.openSocketID)) {
+                            // 验证 openSocketID 格式（语义化名称 或 0x 十六进制）
+                            if (sock.openSocketID && !isValidSocketId(sock.openSocketID)) {
                                 warn(`接口 "${name}" openSocketID 格式异常: ${sock.openSocketID}`);
                             }
                         }

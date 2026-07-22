@@ -4,8 +4,8 @@
   "manifestVersion": "1.0.0",
   "openSocket": {
     "YourFunction": {
-      "appID": "0x00000000",
-      "openSocketID": "0x00000010",
+      "appID": "com.example.yourapp",
+      "openSocketID": "yourfunction",
       "description": "功能描述",
       "args": {
         "paramName": {
@@ -19,8 +19,8 @@
   },
   "signal": {
     "YourSignal": {
-      "appID": "0x00000000",
-      "signalID": "0x00000011",
+      "appID": "com.example.yourapp",
+      "signalID": "yoursignal",
       "description": "信号描述",
       "returns": {
         "fieldName": {

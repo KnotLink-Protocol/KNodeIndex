@@ -27,14 +27,14 @@ standalone/          ← 独立式节点（独立进程运行）
 
 ```json
 {
-  "app_id": "0x00000014",        // 十六进制 AppID，全局唯一
-  "plugin_name": "节点名称",      //
-  "author": "你的名字",           //
-  "version": "v1.0.0",           //
-  "description": "一句话描述",    //
+  "app_id": "com.example.myapp",        // 倒置域名 AppID，全局唯一
+  "plugin_name": "节点名称",             //
+  "author": "你的名字",                  //
+  "version": "v1.0.0",                  //
+  "description": "一句话描述",           //
   "download_url": "https://github.com/your-org/your-repo/releases/latest",  // 下载地址
-  "auto_start": "true",          // 是否开机自启
-  "exe_path": "app.exe"          // 可执行文件名
+  "auto_start": "true",                 // 是否开机自启
+  "exe_path": "app.exe"                 // 可执行文件名
 }
 ```
 
@@ -42,11 +42,11 @@ standalone/          ← 独立式节点（独立进程运行）
 
 ```json
 {
-  "app_id": "0x00000014",        // 十六进制 AppID，全局唯一
-  "plugin_name": "节点名称",      //
-  "author": "你的名字",           //
-  "version": "v1.0.0",           //
-  "description": "一句话描述",    //
+  "app_id": "com.example.myapp",        // 倒置域名 AppID，全局唯一
+  "plugin_name": "节点名称",             //
+  "author": "你的名字",                  //
+  "version": "v1.0.0",                  //
+  "description": "一句话描述",           //
   "download_url": "https://github.com/your-org/your-repo/releases/latest"  // 下载地址
 }
 ```
@@ -62,8 +62,8 @@ standalone/          ← 独立式节点（独立进程运行）
   "manifestVersion": "1.0.0",
   "openSocket": {
     "接口名": {
-      "appID": "0x00000014",
-      "openSocketID": "0x00000010",
+      "appID": "com.example.myapp",
+      "openSocketID": "myfunction",
       "description": "接口描述",
       "args": {
         "参数名": {
@@ -77,8 +77,8 @@ standalone/          ← 独立式节点（独立进程运行）
   },
   "signal": {
     "信号名": {
-      "appID": "0x00000014",
-      "signalID": "0x00000011",
+      "appID": "com.example.myapp",
+      "signalID": "mysignal",
       "description": "信号描述",
       "returns": {
         "字段名": {

@@ -1,5 +1,5 @@
 {
-  "app_id": "0x00000000",
+  "app_id": "com.example.yourapp",
   "plugin_name": "你的节点名",
   "author": "你的名字",
   "version": "v1.0.0",
