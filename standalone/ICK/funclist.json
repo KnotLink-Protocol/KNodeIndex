@@ -1,5 +1,7 @@
 {
   "appName": "Ink Canvas",
+  "specVersion": "1.0",
+  "manifestVersion": "1.0.0",
   "openSocket": {
     "GetStatus": {
       "appID": "0x00000031",

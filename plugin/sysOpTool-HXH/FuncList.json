@@ -1,5 +1,7 @@
 {
   "appName": "系统操作工具",
+  "specVersion": "1.0",
+  "manifestVersion": "1.0.0",
   "openSocket": {
     "SSS": {
       "appID": "0x00000015",

@@ -2,6 +2,10 @@
 
 基于 PyQt5 的 Windows 桌面消息提醒工具，通过 [KnotLink](https://github.com/hxh230802/KnotLink) 桥接系统接收来自其他应用的消息，并以动画 Toast 弹窗形式在屏幕顶部居中展示。
 
+## 仓库地址
+
+- **GitHub**: https://github.com/hxh230802/MsgNotification
+
 ## 功能特性
 
 - **动画 Toast 弹窗** — 消息从屏幕顶部滑入，停留 3.5 秒后自动滑出消失

@@ -4,7 +4,5 @@
   "author": "你的名字",
   "version": "v1.0.0",
   "description": "一句话描述你的节点功能",
-  "download_url": "https://github.com/your-org/your-repo/releases/latest",
-  "auto_start": "false",
-  "exe_path": "your-app.exe"
+  "download_url": "https://github.com/your-org/your-repo/releases/latest"
 }

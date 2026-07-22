@@ -1,5 +1,7 @@
 {
   "appName": "MultiTTS",
+  "specVersion": "1.0",
+  "manifestVersion": "1.0.0",
   "openSocket": {
     "SysTTS": {
       "appID": "0x00000022",

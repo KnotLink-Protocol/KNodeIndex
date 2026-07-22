@@ -4,6 +4,7 @@
   "author": "HXH",
   "version": "v1.0.0",
   "description": "操作系统功能",
+  "download_url": "https://github.com/hxh230802/sysOpTool/releases/latest",
   "auto_start": "false",
   "exe_path": "sysOpTool.exe"
 }

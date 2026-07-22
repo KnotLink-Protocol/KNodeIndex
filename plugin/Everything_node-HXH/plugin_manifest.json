@@ -1,0 +1,10 @@
+{
+  "app_id": "com.everything.node",
+  "plugin_name": "Everything 搜索节点",
+  "author": "HXH",
+  "version": "v1.0.0",
+  "description": "使用 Everything 搜索引擎执行文件搜索",
+  "download_url": "https://github.com/hxh230802/Everything_node/releases/latest",
+  "auto_start": "false",
+  "exe_path": "Everything_node.exe"
+}

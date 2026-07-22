@@ -32,10 +32,26 @@ standalone/          ← 独立式节点（独立进程运行）
   "author": "你的名字",           //
   "version": "v1.0.0",           //
   "description": "一句话描述",    //
+  "download_url": "https://github.com/your-org/your-repo/releases/latest",  // 下载地址
   "auto_start": "true",          // 是否开机自启
   "exe_path": "app.exe"          // 可执行文件名
 }
 ```
+
+## standalone_manifest.json 格式
+
+```json
+{
+  "app_id": "0x00000014",        // 十六进制 AppID，全局唯一
+  "plugin_name": "节点名称",      //
+  "author": "你的名字",           //
+  "version": "v1.0.0",           //
+  "description": "一句话描述",    //
+  "download_url": "https://github.com/your-org/your-repo/releases/latest"  // 下载地址
+}
+```
+
+> 独立式节点自行管理生命周期，无需 `auto_start` 和 `exe_path` 字段。
 
 ## FuncList.json 格式
 

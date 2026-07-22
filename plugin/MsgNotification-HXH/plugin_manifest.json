@@ -3,6 +3,7 @@
     "author": "HXH",
     "auto_start": "true",
     "description": "在屏幕顶端弹出消息窗口",
+    "download_url": "https://github.com/hxh230802/MsgNotification/releases/latest",
     "exe_path": "MsgNotification.exe",
     "plugin_name": "消息提醒",
     "version": "v1.0.0"

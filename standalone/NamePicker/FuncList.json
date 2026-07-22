@@ -1,5 +1,7 @@
 {
     "appName": "RandomPicker",
+    "specVersion": "1.0",
+    "manifestVersion": "1.0.0",
     "openSocket": {
         "pick": {
             "appID": "NamePicker",

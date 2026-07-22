@@ -6,7 +6,7 @@
 
 - **官方网站**: https://example.com
 - **下载地址**: https://example.com/download
-- **GitHub**: https://github.com/your-org/your-repo
+- **仓库地址**: https://github.com/your-org/your-repo
 
 ## 功能特性
 

@@ -4,6 +4,7 @@
   "author": "XY Wang & HXH",
   "version": "v1.0.0",
   "description": "提供屏幕批注相关功能",
+  "download_url": "https://github.com/hxh230802/ICK/releases/latest",
   "auto_start": "false",
   "exe_path": "Ink Canvas.exe"
 }

@@ -1,5 +1,7 @@
 {
   "appName": "Everything 搜索节点",
+  "specVersion": "1.0",
+  "manifestVersion": "1.0.0",
   "openSocket": {
     "search": {
       "appID": "com.everything.node",
