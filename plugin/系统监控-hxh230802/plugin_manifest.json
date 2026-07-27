@@ -1,0 +1,10 @@
+{
+    "app_id": "com.github.hxh230802.systemmonitor",
+    "plugin_name": "系统监控",
+    "author": "hxh230802",
+    "version": "v1.0.0",
+    "description": "Windows 系统资源监控，支持 CPU、内存、磁盘 I/O、网络速率实时采集",
+    "download_url": "https://github.com/KnotLink-Nodes/system_monitor_win/releases/latest",
+    "auto_start": "false",
+    "exe_path": "monitor.exe"
+}

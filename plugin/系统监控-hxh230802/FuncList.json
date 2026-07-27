@@ -1,0 +1,102 @@
+{
+    "appName": "系统监控",
+    "specVersion": "1.0",
+    "manifestVersion": "1.0.0",
+    "openSocket": {
+        "get-cpu": {
+            "appID": "com.github.hxh230802.systemmonitor",
+            "openSocketID": "system",
+            "description": "获取 CPU 总使用率及各核心使用率",
+            "args": {
+                "action": {
+                    "type": "static",
+                    "value": "cpu",
+                    "description": "数据类型（固定为 cpu）"
+                }
+            },
+            "returns": [
+                ["CPU 总使用率（%）", "cpu_total"],
+                ["各核心使用率（逗号分隔，%）", "cpu_cores"]
+            ]
+        },
+        "get-memory": {
+            "appID": "com.github.hxh230802.systemmonitor",
+            "openSocketID": "system",
+            "description": "获取内存信息，含总量、已用、可用、使用率",
+            "args": {
+                "action": {
+                    "type": "static",
+                    "value": "memory",
+                    "description": "数据类型（固定为 memory）"
+                }
+            },
+            "returns": [
+                ["内存总量（字节）", "memory_total_bytes"],
+                ["已用内存（字节）", "memory_used_bytes"],
+                ["可用内存（字节）", "memory_available_bytes"],
+                ["内存使用率（%）", "memory_usage_percent"]
+            ]
+        },
+        "get-disk": {
+            "appID": "com.github.hxh230802.systemmonitor",
+            "openSocketID": "system",
+            "description": "获取磁盘分区信息及 I/O 读写速率",
+            "args": {
+                "action": {
+                    "type": "static",
+                    "value": "disk",
+                    "description": "数据类型（固定为 disk）"
+                }
+            },
+            "returns": [
+                ["分区列表（盘符,总量,已用,空闲,使用率，竖线分隔）", "disk_partitions"],
+                ["磁盘读取速率（字节/秒）", "disk_read_bytes_per_sec"],
+                ["磁盘写入速率（字节/秒）", "disk_write_bytes_per_sec"]
+            ]
+        },
+        "get-network": {
+            "appID": "com.github.hxh230802.systemmonitor",
+            "openSocketID": "system",
+            "description": "获取各网卡收发速率及总速率",
+            "args": {
+                "action": {
+                    "type": "static",
+                    "value": "network",
+                    "description": "数据类型（固定为 network）"
+                }
+            },
+            "returns": [
+                ["总接收速率（字节/秒）", "network_total_recv_bytes_per_sec"],
+                ["总发送速率（字节/秒）", "network_total_send_bytes_per_sec"],
+                ["各接口详情（名称,收,发，竖线分隔）", "network_interfaces"]
+            ]
+        },
+        "get-all": {
+            "appID": "com.github.hxh230802.systemmonitor",
+            "openSocketID": "system",
+            "description": "获取全部系统监控数据（CPU、内存、磁盘、网络）",
+            "args": {
+                "action": {
+                    "type": "static",
+                    "value": "all",
+                    "description": "数据类型（固定为 all）"
+                }
+            },
+            "returns": [
+                ["CPU 总使用率", "cpu_total"],
+                ["各核心使用率", "cpu_cores"],
+                ["内存总量", "memory_total_bytes"],
+                ["已用内存", "memory_used_bytes"],
+                ["可用内存", "memory_available_bytes"],
+                ["内存使用率", "memory_usage_percent"],
+                ["分区列表", "disk_partitions"],
+                ["磁盘读取速率", "disk_read_bytes_per_sec"],
+                ["磁盘写入速率", "disk_write_bytes_per_sec"],
+                ["网络总接收速率", "network_total_recv_bytes_per_sec"],
+                ["网络总发送速率", "network_total_send_bytes_per_sec"],
+                ["各网络接口详情", "network_interfaces"]
+            ]
+        }
+    },
+    "signal": {}
+}
