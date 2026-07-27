@@ -23,10 +23,18 @@ KNodeIndex/
 │   ├── FuncList.json
 │   ├── logo.png         ← 占位图，替换为实际 logo
 │   └── README.md
-├── validate-nodes.js    ← 格式校验脚本：node validate-nodes.js
+├── practice/            ← 新手训练营（完形填空练习，不进节点索引）
+│   ├── README.md        ← 训练营说明（6 步流程）
+│   ├── AGENT.md         ← 训练营 agent 指南（结构/规范/各语言API/校验）
+│   ├── _exercise/       ← 练习模板：python/js/java/csharp/cpp 各一个自包含项目（含打包 SDK + 构建文件）
+│   └── _answer/         ← 参考答案：5 语言各一文件夹，代码+元数据填好（精简无 SDK；_ 前缀校验器忽略）
+├── validate-nodes.js    ← 节点格式校验：node validate-nodes.js
+├── validate-practice.js ← 训练营练习校验：node validate-practice.js
 ├── CONTRIBUTING.md      ← 开发者贡献指南
 └── .github/
-    └── PULL_REQUEST_TEMPLATE.md
+    ├── PULL_REQUEST_TEMPLATE.md
+    └── workflows/
+        └── validate-practice.yml  ← 练习 PR 自动判题
 ```
 
 ## 节点类型

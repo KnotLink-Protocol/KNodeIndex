@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- KnotLink SDK 已随项目打包在 ./knotlink/，默认会被一起编译，无需 NuGet 依赖。 -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AssemblyName>msgreminder</AssemblyName>
+  </PropertyGroup>
+
+</Project>

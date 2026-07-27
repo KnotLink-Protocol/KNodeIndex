@@ -1,0 +1,31 @@
+{
+  "appName": "消息提醒",
+  "specVersion": "1.0",
+  "manifestVersion": "1.0.0",
+  "openSocket": {
+    "ShowMsg": {
+      "appID": "com.github.knotlink.msgreminder",
+      "openSocketID": "show",
+      "description": "打印收到的消息并回复 OK",
+      "args": {
+        "msgContext": {
+          "type": "input",
+          "description": "消息内容",
+          "defaultVal": "测试消息"
+        }
+      },
+      "returns": []
+    }
+  },
+  "signal": {
+    "messageShown": {
+      "appID": "com.github.knotlink.msgreminder",
+      "signalID": "messageShown",
+      "description": "消息显示后广播",
+      "returns": {
+        "content": { "description": "已显示的消息内容" },
+        "time": { "description": "消息显示的时间" }
+      }
+    }
+  }
+}

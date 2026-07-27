@@ -1,6 +1,6 @@
 {
   "app_id": "com.example.yourapp",
-  "plugin_name": "你的节点名",
+  "app_name": "你的节点名",
   "author": "你的名字",
   "version": "v1.0.0",
   "description": "一句话描述你的节点功能",

@@ -1,0 +1,11 @@
+{
+  "name": "msgreminder",
+  "version": "1.0.0",
+  "description": "KnotLink 练习节点 — 消息提醒（JavaScript）",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "license": "MIT",
+  "_comment": "KnotLink SDK 已随项目打包在 ./knotlink/，通过相对路径 require，无需 npm 安装外部依赖。"
+}

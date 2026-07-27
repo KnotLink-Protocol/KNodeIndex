@@ -1,0 +1,9 @@
+{
+  "app_id": "___FILL_THIS___",
+  "plugin_name": "___FILL_THIS___",
+  "author": "___FILL_THIS___",
+  "version": "v1.0.0",
+  "description": "___FILL_THIS___",
+  "auto_start": "true",
+  "exe_path": "___FILL_THIS___"
+}

@@ -1,0 +1,9 @@
+{
+  "app_id": "com.github.knotlink.msgreminder",
+  "plugin_name": "消息提醒",
+  "author": "KnotLink",
+  "version": "v1.0.0",
+  "description": "把收到的消息打印到控制台的示例节点",
+  "auto_start": "true",
+  "exe_path": "MsgNotification.exe"
+}

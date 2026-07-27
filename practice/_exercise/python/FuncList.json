@@ -1,0 +1,31 @@
+{
+  "appName": "___FILL_THIS___",
+  "specVersion": "1.0",
+  "manifestVersion": "1.0.0",
+  "openSocket": {
+    "ShowMsg": {
+      "appID": "___FILL_THIS___",
+      "openSocketID": "___FILL_THIS___",
+      "description": "___FILL_THIS___",
+      "args": {
+        "msgContext": {
+          "type": "input",
+          "description": "消息内容",
+          "defaultVal": "测试消息"
+        }
+      },
+      "returns": []
+    }
+  },
+  "signal": {
+    "messageShown": {
+      "appID": "___FILL_THIS___",
+      "signalID": "___FILL_THIS___",
+      "description": "___FILL_THIS___",
+      "returns": {
+        "content": { "description": "已显示的消息内容" },
+        "time": { "description": "消息显示的时间" }
+      }
+    }
+  }
+}

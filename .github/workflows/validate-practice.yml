@@ -1,0 +1,58 @@
+name: 训练营练习校验
+
+# 只在改动 practice/ 的 PR 上触发。
+# fork PR 的 GITHUB_TOKEN 是只读的，所以这里不发 PR 评论——
+# 反馈通过“红叉/绿勾检查 + Job Summary”呈现；新手在本地跑
+# `node validate-practice.js` 即可拿到逐条反馈。
+on:
+  pull_request:
+    paths:
+      - 'practice/**'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # 硬门禁 1：结构 / 占位符 / 跨文件一致性（语言无关）
+      - name: 结构与一致性校验
+        run: node validate-practice.js
+
+      # 硬门禁 2：Python / JS 语法（无需 SDK 即可查）
+      - name: 语法检查（Python / JS）
+        run: |
+          fail=0
+          for d in practice/*/; do
+            b=$(basename "$d"); case "$b" in _*) continue;; esac
+            if [ -f "${d}main.py" ]; then echo "::group::py_compile ${d}main.py"; python3 -m py_compile "${d}main.py" || fail=1; echo "::endgroup::"; fi
+            if [ -f "${d}main.js" ]; then echo "::group::node --check ${d}main.js"; node --check "${d}main.js" || fail=1; echo "::endgroup::"; fi
+          done
+          exit $fail
+
+      # 编译型语言（Java / C# / C++）：项目里已打包 SDK，可真编译。
+      # 标 best-effort（continue-on-error）——CI 是 Linux，个别 SDK 可能平台相关，
+      # 不因此阻断；结构/一致性由上面的硬门禁保证。
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: 编译检查（Java / C# / C++，best-effort）
+        continue-on-error: true
+        run: |
+          for d in practice/*/; do
+            b=$(basename "$d"); case "$b" in _*) continue;; esac
+            if [ -f "${d}Main.java" ]; then echo "::group::javac $d"; (cd "$d" && javac -encoding UTF-8 -sourcepath knotlink-sdk -d out Main.java); echo "::endgroup::"; fi
+            if [ -f "${d}Program.cs" ]; then echo "::group::dotnet build $d"; (cd "$d" && dotnet build -c Release -v q); echo "::endgroup::"; fi
+            if [ -f "${d}main.cpp" ]; then echo "::group::g++ $d"; (cd "$d" && g++ -std=c++17 -I knotlink -fsyntax-only main.cpp); echo "::endgroup::"; fi
+          done

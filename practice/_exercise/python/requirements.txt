@@ -1,0 +1,3 @@
+# KnotLink SDK 已随本项目打包在 ./knotlink/，可直接运行，无需安装。
+# 若想改用官方发布版（PyPI）：pip install -r requirements.txt
+knotlink
