@@ -4,7 +4,7 @@
     "manifestVersion": "1.0.0",
     "openSocket": {
         "pick": {
-            "appID": "NamePicker",
+            "appID": "cn.knotlink.namepicker",
             "openSocketID": "control",
             "description": "抽取一名学生（单人）",
             "args": {
@@ -29,7 +29,7 @@
             ]
         },
         "multiple": {
-            "appID": "NamePicker",
+            "appID": "cn.knotlink.namepicker",
             "openSocketID": "control",
             "description": "抽取多名学生（多人）",
             "args": {
@@ -52,7 +52,7 @@
             "returns": []
         },
         "window": {
-            "appID": "NamePicker",
+            "appID": "cn.knotlink.namepicker",
             "openSocketID": "control",
             "description": "控制主窗口或托盘图标显示/隐藏",
             "args": {
@@ -83,7 +83,7 @@
             "returns": []
         },
         "get_names": {
-            "appID": "NamePicker",
+            "appID": "cn.knotlink.namepicker",
             "openSocketID": "control",
             "description": "获取当前学生名单（JSON 数组）",
             "args": {
@@ -98,7 +98,7 @@
             ]
         },
         "add_name": {
-            "appID": "NamePicker",
+            "appID": "cn.knotlink.namepicker",
             "openSocketID": "control",
             "description": "添加一名学生到名单",
             "args": {
@@ -135,7 +135,7 @@
             "returns": []
         },
         "del_name": {
-            "appID": "NamePicker",
+            "appID": "cn.knotlink.namepicker",
             "openSocketID": "control",
             "description": "删除指定位置的学生",
             "args": {
@@ -153,7 +153,7 @@
             "returns": []
         },
         "update_name": {
-            "appID": "NamePicker",
+            "appID": "cn.knotlink.namepicker",
             "openSocketID": "control",
             "description": "更新指定位置的学生信息",
             "args": {
@@ -192,7 +192,7 @@
     },
     "signal": {
         "onPickSingle": {
-      "appID": "NamePicker",
+      "appID": "cn.knotlink.namepicker",
       "signalID": "onPick",
       "description": "单次点名触发时",
       "returns": {

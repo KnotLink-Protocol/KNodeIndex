@@ -16,7 +16,10 @@ const REQUIRED_FILES = {
     plugin: ['plugin_manifest.json', 'FuncList.json', 'logo.png'],
     standalone: ['FuncList.json', 'logo.png'], // manifest 可选，允许其他命名
 };
-const MANIFEST_FIELDS = ['app_id', 'plugin_name', 'author', 'version', 'description'];
+const MANIFEST_FIELDS = {
+    plugin_manifest: ['app_id', 'plugin_name', 'author', 'version', 'description'],
+    standalone_manifest: ['app_id', 'app_name', 'author', 'version', 'description'],
+};
 
 let errors = 0;
 let warnings = 0;
@@ -88,7 +91,9 @@ function validate() {
             if (manifestFile) {
                 try {
                     const manifest = JSON.parse(fs.readFileSync(manifestFile, 'utf-8'));
-                    for (const field of MANIFEST_FIELDS) {
+                    const manifestType = path.basename(manifestFile).replace('.json', '');
+                    const fields = MANIFEST_FIELDS[manifestType] || MANIFEST_FIELDS['plugin_manifest'];
+                    for (const field of fields) {
                         if (!manifest[field]) {
                             warn(`${path.basename(manifestFile)} 缺少字段: ${field}`);
                         }
@@ -114,8 +119,9 @@ function validate() {
                     if (manifestFile) {
                         try {
                             const manifest = JSON.parse(fs.readFileSync(manifestFile, 'utf-8'));
-                            if (funcList.appName && manifest.plugin_name && funcList.appName !== manifest.plugin_name) {
-                                warn(`FuncList.appName ("${funcList.appName}") 与 manifest.plugin_name ("${manifest.plugin_name}") 不一致`);
+                            const manifestName = manifest.plugin_name || manifest.app_name || '';
+                            if (funcList.appName && manifestName && funcList.appName !== manifestName) {
+                                warn(`FuncList.appName ("${funcList.appName}") 与 manifest 名称 ("${manifestName}") 不一致`);
                             }
                         } catch (e) { /* already reported */ }
                     }

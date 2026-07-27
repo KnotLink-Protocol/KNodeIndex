@@ -1,6 +1,6 @@
 {
   "app_id": "0x00000031",
-  "plugin_name": "ClassIsland",
+  "app_name": "ClassIsland",
   "author": "信",
   "version": "v1.0.0",
   "description": "课程信息与桌面通知服务",

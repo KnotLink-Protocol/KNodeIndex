@@ -6,7 +6,7 @@
     "SSS": {
       "appID": "0x00000015",
       "openSocketID": "0x00000011",
-      "description": "",
+      "description": "系统电源操作：关机、睡眠、锁屏",
       "args": {
         "cmd": {
           "type": "optional",
@@ -32,7 +32,7 @@
     "findWindowByTitle": {
       "appID": "0x00000015",
       "openSocketID": "0x00000011",
-      "description": "",
+      "description": "根据窗口标题查找窗口句柄",
       "args": {
         "cmd": {
           "type": "optional",
@@ -60,7 +60,7 @@
     "setWindowState": {
       "appID": "0x00000015",
       "openSocketID": "0x00000011",
-      "description": "",
+      "description": "设置窗口状态：隐藏、显示、最小化、最大化、恢复",
       "args": {
         "cmd": {
           "type": "optional",

@@ -45,7 +45,7 @@ standalone/          ← 独立式节点（独立进程运行）
 ```json
 {
   "app_id": "com.example.myapp",        // 倒置域名 AppID，全局唯一
-  "plugin_name": "节点名称",             //
+  "app_name": "节点名称",                //
   "author": "你的名字",                  //
   "version": "v1.0.0",                  //
   "description": "一句话描述",           //
@@ -53,7 +53,7 @@ standalone/          ← 独立式节点（独立进程运行）
 }
 ```
 
-> 独立式节点自行管理生命周期，无需 `auto_start` 和 `exe_path` 字段。
+> 独立式节点自行管理生命周期，无需 `auto_start` 和 `exe_path` 字段。注意字段名为 `app_name`（区别于插入式的 `plugin_name`）。
 
 ## FuncList.json 格式
 
