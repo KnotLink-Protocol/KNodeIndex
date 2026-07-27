@@ -1,0 +1,219 @@
+{
+    "appName": "系统操作工具",
+    "specVersion": "1.0",
+    "manifestVersion": "1.0.0",
+    "openSocket": {
+        "shutdown": {
+            "appID": "com.github.hxh230802.sysoperatetool",
+            "openSocketID": "system",
+            "description": "定时关机，支持倒计时和静默执行",
+            "args": {
+                "action": {
+                    "type": "static",
+                    "value": "shutdown",
+                    "description": "命令类型（固定为 shutdown）"
+                },
+                "delay": {
+                    "type": "input",
+                    "defaultVal": "10",
+                    "description": "倒计时秒数，0 为立即执行"
+                },
+                "silence": {
+                    "type": "optional",
+                    "options": [
+                        ["正常弹窗", "false"],
+                        ["静默执行", "true"]
+                    ],
+                    "defaultVal": "false",
+                    "description": "是否静默执行（不弹倒计时窗口）"
+                }
+            },
+            "returns": [
+                ["执行状态", "status"]
+            ]
+        },
+        "sleep": {
+            "appID": "com.github.hxh230802.sysoperatetool",
+            "openSocketID": "system",
+            "description": "系统睡眠，支持倒计时和静默执行",
+            "args": {
+                "action": {
+                    "type": "static",
+                    "value": "sleep",
+                    "description": "命令类型（固定为 sleep）"
+                },
+                "delay": {
+                    "type": "input",
+                    "defaultVal": "10",
+                    "description": "倒计时秒数，0 为立即执行"
+                },
+                "silence": {
+                    "type": "optional",
+                    "options": [
+                        ["正常弹窗", "false"],
+                        ["静默执行", "true"]
+                    ],
+                    "defaultVal": "false",
+                    "description": "是否静默执行（不弹倒计时窗口）"
+                }
+            },
+            "returns": [
+                ["执行状态", "status"]
+            ]
+        },
+        "lockScreen": {
+            "appID": "com.github.hxh230802.sysoperatetool",
+            "openSocketID": "system",
+            "description": "锁屏，显示黑色全屏遮罩，支持倒计时",
+            "args": {
+                "action": {
+                    "type": "static",
+                    "value": "lockScreen",
+                    "description": "命令类型（固定为 lockScreen）"
+                },
+                "delay": {
+                    "type": "input",
+                    "defaultVal": "10",
+                    "description": "倒计时秒数，0 为立即执行"
+                },
+                "silence": {
+                    "type": "optional",
+                    "options": [
+                        ["正常弹窗", "false"],
+                        ["静默执行", "true"]
+                    ],
+                    "defaultVal": "false",
+                    "description": "是否静默执行（不弹倒计时窗口）"
+                }
+            },
+            "returns": [
+                ["执行状态", "status"]
+            ]
+        },
+        "getSysVolume": {
+            "appID": "com.github.hxh230802.sysoperatetool",
+            "openSocketID": "system",
+            "description": "获取当前系统音量，返回 0~100 整数",
+            "args": {
+                "action": {
+                    "type": "static",
+                    "value": "getSysVolume",
+                    "description": "命令类型（固定为 getSysVolume）"
+                }
+            },
+            "returns": [
+                ["当前音量（0~100）", "volume"]
+            ]
+        },
+        "setSysVolume": {
+            "appID": "com.github.hxh230802.sysoperatetool",
+            "openSocketID": "system",
+            "description": "设置系统音量",
+            "args": {
+                "action": {
+                    "type": "static",
+                    "value": "setSysVolume",
+                    "description": "命令类型（固定为 setSysVolume）"
+                },
+                "vol": {
+                    "type": "input",
+                    "defaultVal": "50",
+                    "description": "音量值（0~100）"
+                }
+            },
+            "returns": [
+                ["执行状态", "status"]
+            ]
+        },
+        "getSystemMuteStatus": {
+            "appID": "com.github.hxh230802.sysoperatetool",
+            "openSocketID": "system",
+            "description": "查询系统是否静音",
+            "args": {
+                "action": {
+                    "type": "static",
+                    "value": "getSystemMuteStatus",
+                    "description": "命令类型（固定为 getSystemMuteStatus）"
+                }
+            },
+            "returns": [
+                ["是否静音（1=静音，0=未静音）", "muted"]
+            ]
+        },
+        "setSystemMuteStatus": {
+            "appID": "com.github.hxh230802.sysoperatetool",
+            "openSocketID": "system",
+            "description": "切换系统静音状态",
+            "args": {
+                "action": {
+                    "type": "static",
+                    "value": "setSystemMuteStatus",
+                    "description": "命令类型（固定为 setSystemMuteStatus）"
+                },
+                "status": {
+                    "type": "optional",
+                    "options": [
+                        ["取消静音", "0"],
+                        ["静音", "1"]
+                    ],
+                    "description": "静音状态"
+                }
+            },
+            "returns": [
+                ["执行状态", "status"]
+            ]
+        },
+        "findWindowByTitle": {
+            "appID": "com.github.hxh230802.sysoperatetool",
+            "openSocketID": "system",
+            "description": "根据窗口标题查找窗口句柄，返回十六进制 HWND",
+            "args": {
+                "action": {
+                    "type": "static",
+                    "value": "findWindowByTitle",
+                    "description": "命令类型（固定为 findWindowByTitle）"
+                },
+                "title": {
+                    "type": "input",
+                    "defaultVal": "",
+                    "description": "窗口标题（支持部分匹配）"
+                }
+            },
+            "returns": [
+                ["窗口句柄（十六进制字符串）", "hwnd"]
+            ]
+        },
+        "setWindowState": {
+            "appID": "com.github.hxh230802.sysoperatetool",
+            "openSocketID": "system",
+            "description": "设置指定窗口的显示状态（隐藏/显示/最小化/最大化/恢复）",
+            "args": {
+                "action": {
+                    "type": "static",
+                    "value": "setWindowState",
+                    "description": "命令类型（固定为 setWindowState）"
+                },
+                "hwnd": {
+                    "type": "input",
+                    "defaultVal": "0",
+                    "description": "窗口句柄（十六进制字符串）"
+                },
+                "state": {
+                    "type": "optional",
+                    "options": [
+                        ["隐藏", "SW_HIDE"],
+                        ["显示", "SW_SHOW"],
+                        ["最小化", "SW_MINIMIZE"],
+                        ["最大化", "SW_MAXIMIZE"],
+                        ["恢复", "SW_RESTORE"]
+                    ],
+                    "description": "窗口显示状态"
+                }
+            },
+            "returns": [
+                ["执行状态", "status"]
+            ]
+        }
+    },
+    "signal": {}
+}
