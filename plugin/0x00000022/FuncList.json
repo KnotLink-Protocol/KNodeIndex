@@ -1,5 +1,5 @@
 {
-  "appName": "MultiTTS",
+  "appName": "语音合成",
   "openSocket": {
     "SysTTS": {
       "appID": "0x00000022",
