@@ -1,10 +1,9 @@
 {
-  "app_id": "com.everything.node",
-  "plugin_name": "Everything 搜索",
-  "author": "HXH",
-  "version": "v1.0.0",
-  "description": "使用 Everything 搜索引擎执行文件搜索",
-  "download_url": "https://github.com/KnotLink-Nodes/Everything/releases/latest",
-  "auto_start": "false",
-  "exe_path": "Everything_node.exe"
+    "app_id": "com.everything.node",
+    "author": "HXH",
+    "auto_start": "true",
+    "description": "提供文件搜索服务",
+    "exe_path": "everything_node.exe",
+    "plugin_name": "Everthing 搜索",
+    "version": "v1.1.0"
 }

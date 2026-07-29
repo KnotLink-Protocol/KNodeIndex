@@ -2,7 +2,7 @@
     "app_id": "com.github.hxh230802.sysoperatetool",
     "plugin_name": "系统操作工具",
     "author": "hxh230802",
-    "version": "v1.0.0",
+    "version": "v1.2.0",
     "description": "系统操作工具，支持关机、睡眠、锁屏、音量控制、窗口管理",
     "download_url": "https://github.com/KnotLink-Nodes/sysOperateTool/releases/latest",
     "auto_start": "false",

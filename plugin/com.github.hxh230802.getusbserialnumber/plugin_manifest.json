@@ -1,0 +1,10 @@
+{
+    "app_id": "com.github.hxh230802.getusbserialnumber",
+    "plugin_name": "USB 序列号获取",
+    "author": "hxh230802",
+    "version": "v1.0.0",
+    "description": "获取 USB 可移动驱动器的硬件序列号",
+    "download_url": "https://github.com/KnotLink-Nodes/GetUSBSerialNumber/releases/latest",
+    "auto_start": "true",
+    "exe_path": "GetUSBSerialNumber_Qt.exe"
+}

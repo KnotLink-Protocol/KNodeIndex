@@ -1,0 +1,43 @@
+{
+    "appName": "USB 序列号获取",
+    "specVersion": "1.0",
+    "manifestVersion": "1.0.0",
+    "openSocket": {
+        "get-serial": {
+            "appID": "com.github.hxh230802.getusbserialnumber",
+            "openSocketID": "usb",
+            "description": "获取指定盘符的 USB 硬件序列号",
+            "args": {
+                "action": {
+                    "type": "static",
+                    "value": "get-serial",
+                    "description": "命令类型（固定为 get-serial）"
+                },
+                "drive": {
+                    "type": "input",
+                    "defaultVal": "G",
+                    "description": "盘符（单个字母，如 G、H）"
+                }
+            },
+            "returns": [
+                ["USB 硬件序列号", "serial"]
+            ]
+        },
+        "list-drives": {
+            "appID": "com.github.hxh230802.getusbserialnumber",
+            "openSocketID": "usb",
+            "description": "列出所有已连接的可移动驱动器及其序列号",
+            "args": {
+                "action": {
+                    "type": "static",
+                    "value": "list-drives",
+                    "description": "命令类型（固定为 list-drives）"
+                }
+            },
+            "returns": [
+                ["驱动器列表（JSON 数组，含 drive/name/serial）", "drives"]
+            ]
+        }
+    },
+    "signal": {}
+}

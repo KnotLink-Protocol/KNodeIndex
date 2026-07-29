@@ -1,10 +1,10 @@
 {
-  "app_id": "0x00000022",
-  "plugin_name": "MultiTTS",
-  "author": "HXH",
-  "version": "v1.0.0",
-  "description": "多引擎 TTS 语音合成客户端",
-  "download_url": "https://github.com/hxh230802/MultiTTS_Client/releases/latest",
-  "auto_start": "false",
-  "exe_path": "MultiTTS_Client.exe"
+    "app_id": "0x00000022",
+    "author": "HXH",
+    "auto_start": "true",
+    "description": "文字转语音",
+    "exe_path": "MultiTTS_Client.exe",
+    "plugin_name": "文字转语音",
+    "download_url": "https://github.com/KnotLink-Nodes/MultiTTS/releases/latest",
+    "version": "v1.0.0"
 }
