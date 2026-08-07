@@ -1,0 +1,306 @@
+{
+    "appName": "NamePickerPlus",
+    "specVersion": "1.0",
+    "manifestVersion": "1.0.0",
+    "openSocket": {
+        "pick-single": {
+            "appID": "com.github.hxh230802.namepickerplus",
+            "openSocketID": "control",
+            "description": "触发单次点名，返回被点中学生的姓名、学号、性别等信息",
+            "args": {
+                "action": {
+                    "type": "static",
+                    "value": "pick",
+                    "description": "命令类型（固定为 pick）"
+                },
+                "type": {
+                    "type": "static",
+                    "value": "single",
+                    "description": "点名模式（固定为 single，单次抽选）"
+                }
+            },
+            "returns": [
+                ["请求状态（ok/error）", "status"],
+                ["学生姓名", "name"],
+                ["学号", "no"],
+                ["性别（0=男，1=女，2=非二元）", "sex"],
+                ["错误信息（若失败）", "message"]
+            ]
+        },
+        "pick-multiple": {
+            "appID": "com.github.hxh230802.namepickerplus",
+            "openSocketID": "control",
+            "description": "触发多次点名，一次抽选多名学生",
+            "args": {
+                "action": {
+                    "type": "static",
+                    "value": "pick",
+                    "description": "命令类型（固定为 pick）"
+                },
+                "type": {
+                    "type": "static",
+                    "value": "multiple",
+                    "description": "点名模式（固定为 multiple，多人抽选）"
+                },
+                "num": {
+                    "type": "input",
+                    "defaultVal": "2",
+                    "description": "抽选人数"
+                }
+            },
+            "returns": [
+                ["请求状态（ok/error）", "status"],
+                ["错误信息（若失败）", "message"]
+            ]
+        },
+        "get-names": {
+            "appID": "com.github.hxh230802.namepickerplus",
+            "openSocketID": "control",
+            "description": "获取当前名单中所有学生信息",
+            "args": {
+                "action": {
+                    "type": "static",
+                    "value": "get_names",
+                    "description": "命令类型（固定为 get_names）"
+                }
+            },
+            "returns": [
+                ["请求状态（ok/error）", "status"],
+                ["学生列表（JSON 数组，含 name/sex/no）", "data"]
+            ]
+        },
+        "add-name": {
+            "appID": "com.github.hxh230802.namepickerplus",
+            "openSocketID": "control",
+            "description": "向当前名单添加一名学生，可选择插入位置",
+            "args": {
+                "action": {
+                    "type": "static",
+                    "value": "add_name",
+                    "description": "命令类型（固定为 add_name）"
+                },
+                "name": {
+                    "type": "input",
+                    "defaultVal": "新同学",
+                    "description": "学生姓名"
+                },
+                "sex": {
+                    "type": "optional",
+                    "options": [
+                        ["男", "0"],
+                        ["女", "1"],
+                        ["非二元", "2"]
+                    ],
+                    "description": "性别（0=男，1=女，2=非二元）"
+                },
+                "no": {
+                    "type": "input",
+                    "defaultVal": "0",
+                    "description": "学号"
+                },
+                "pos": {
+                    "type": "input",
+                    "defaultVal": "",
+                    "description": "插入位置（从1开始，留空则追加到末尾）"
+                }
+            },
+            "returns": [
+                ["请求状态（ok/error）", "status"],
+                ["错误信息（若失败）", "message"]
+            ]
+        },
+        "del-name": {
+            "appID": "com.github.hxh230802.namepickerplus",
+            "openSocketID": "control",
+            "description": "从当前名单中删除指定位置的学生",
+            "args": {
+                "action": {
+                    "type": "static",
+                    "value": "del_name",
+                    "description": "命令类型（固定为 del_name）"
+                },
+                "pos": {
+                    "type": "input",
+                    "defaultVal": "1",
+                    "description": "要删除的学生位置（从1开始）"
+                }
+            },
+            "returns": [
+                ["请求状态（ok/error）", "status"],
+                ["错误信息（若失败）", "message"]
+            ]
+        },
+        "update-name": {
+            "appID": "com.github.hxh230802.namepickerplus",
+            "openSocketID": "control",
+            "description": "更新指定位置的学生信息，只传需要修改的字段",
+            "args": {
+                "action": {
+                    "type": "static",
+                    "value": "update_name",
+                    "description": "命令类型（固定为 update_name）"
+                },
+                "pos": {
+                    "type": "input",
+                    "defaultVal": "1",
+                    "description": "要更新的学生位置（从1开始）"
+                },
+                "name": {
+                    "type": "input",
+                    "defaultVal": "",
+                    "description": "新姓名（留空则不修改）"
+                },
+                "sex": {
+                    "type": "input",
+                    "defaultVal": "",
+                    "description": "新性别（0/1/2，留空则不修改）"
+                },
+                "no": {
+                    "type": "input",
+                    "defaultVal": "",
+                    "description": "新学号（留空则不修改）"
+                }
+            },
+            "returns": [
+                ["请求状态（ok/error）", "status"],
+                ["错误信息（若失败）", "message"]
+            ]
+        },
+        "show-main-window": {
+            "appID": "com.github.hxh230802.namepickerplus",
+            "openSocketID": "control",
+            "description": "显示 NamePickerPlus 主窗口",
+            "args": {
+                "action": {
+                    "type": "static",
+                    "value": "window",
+                    "description": "命令类型（固定为 window）"
+                },
+                "target": {
+                    "type": "static",
+                    "value": "main",
+                    "description": "窗口目标（固定为 main）"
+                },
+                "op": {
+                    "type": "static",
+                    "value": "show",
+                    "description": "操作类型（固定为 show）"
+                }
+            },
+            "returns": [
+                ["请求状态（ok/error）", "status"]
+            ]
+        },
+        "hide-main-window": {
+            "appID": "com.github.hxh230802.namepickerplus",
+            "openSocketID": "control",
+            "description": "隐藏 NamePickerPlus 主窗口（最小化到悬浮球）",
+            "args": {
+                "action": {
+                    "type": "static",
+                    "value": "window",
+                    "description": "命令类型（固定为 window）"
+                },
+                "target": {
+                    "type": "static",
+                    "value": "main",
+                    "description": "窗口目标（固定为 main）"
+                },
+                "op": {
+                    "type": "static",
+                    "value": "hide",
+                    "description": "操作类型（固定为 hide）"
+                }
+            },
+            "returns": [
+                ["请求状态（ok/error）", "status"]
+            ]
+        },
+        "show-floatball": {
+            "appID": "com.github.hxh230802.namepickerplus",
+            "openSocketID": "control",
+            "description": "显示桌面悬浮球",
+            "args": {
+                "action": {
+                    "type": "static",
+                    "value": "window",
+                    "description": "命令类型（固定为 window）"
+                },
+                "target": {
+                    "type": "static",
+                    "value": "floatball",
+                    "description": "窗口目标（固定为 floatball，悬浮球）"
+                },
+                "op": {
+                    "type": "static",
+                    "value": "show",
+                    "description": "操作类型（固定为 show）"
+                }
+            },
+            "returns": [
+                ["请求状态（ok/error）", "status"]
+            ]
+        },
+        "hide-floatball": {
+            "appID": "com.github.hxh230802.namepickerplus",
+            "openSocketID": "control",
+            "description": "隐藏桌面悬浮球",
+            "args": {
+                "action": {
+                    "type": "static",
+                    "value": "window",
+                    "description": "命令类型（固定为 window）"
+                },
+                "target": {
+                    "type": "static",
+                    "value": "floatball",
+                    "description": "窗口目标（固定为 floatball，悬浮球）"
+                },
+                "op": {
+                    "type": "static",
+                    "value": "hide",
+                    "description": "操作类型（固定为 hide）"
+                }
+            },
+            "returns": [
+                ["请求状态（ok/error）", "status"]
+            ]
+        }
+    },
+    "signal": {
+        "onPickSingle": {
+            "appID": "com.github.hxh230802.namepickerplus",
+            "signalID": "onPick",
+            "description": "单次点名事件，点名完成后触发推送，附带被点中学生信息",
+            "returns": {
+                "type": {
+                    "description": "事件类型",
+                    "verification": "single"
+                },
+                "name": {
+                    "description": "学生姓名"
+                },
+                "no": {
+                    "description": "学号"
+                },
+                "sex": {
+                    "description": "性别（0=男，1=女，2=非二元）"
+                }
+            }
+        },
+        "onPickMultiple": {
+            "appID": "com.github.hxh230802.namepickerplus",
+            "signalID": "onPick",
+            "description": "多人点名事件，一次抽选多名学生时触发推送，附带 JSON 格式的学生列表",
+            "returns": {
+                "type": {
+                    "description": "事件类型",
+                    "verification": "multiple"
+                },
+                "data": {
+                    "description": "学生列表（JSON 数组，每项含 name/no/sex 等字段）"
+                }
+            }
+        }
+    }
+}
