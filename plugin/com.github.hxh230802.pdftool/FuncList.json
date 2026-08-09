@@ -1,0 +1,1134 @@
+{
+  "appName": "PDF 工具",
+  "specVersion": "1.0",
+  "manifestVersion": "1.0.0",
+  "openSocket": {
+    "merge": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "pages",
+      "description": "合并多个 PDF 文件为一个",
+      "args": {
+        "action": { "type": "static", "value": "merge", "description": "命令类型" },
+        "pdf_list": { "type": "input", "defaultVal": "[\"a.pdf\", \"b.pdf\"]", "description": "PDF 文件路径列表（JSON 数组）" },
+        "output_path": { "type": "input", "defaultVal": "merged.pdf", "description": "输出 PDF 路径" }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["合并文件数", "merged"]
+      ]
+    },
+    "split": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "pages",
+      "description": "拆分 PDF 为多个文件，支持按页数或按书签拆分",
+      "args": {
+        "action": { "type": "static", "value": "split", "description": "命令类型" },
+        "pdf_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "output_dir": { "type": "input", "defaultVal": "./split_out", "description": "输出目录" },
+        "mode": {
+          "type": "optional",
+          "options": [["按页数拆分", "pages"], ["按书签拆分", "bookmarks"]],
+          "description": "拆分模式"
+        },
+        "pages_per_split": { "type": "input", "defaultVal": "1", "description": "每份文件页数（mode=pages 时生效）" }
+      },
+      "returns": [
+        ["输出目录", "output_dir"],
+        ["输出文件列表", "output_files"],
+        ["总页数", "total_pages"]
+      ]
+    },
+    "extract": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "pages",
+      "description": "提取 PDF 中的指定页面为新文件",
+      "args": {
+        "action": { "type": "static", "value": "extract", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "pages": { "type": "input", "defaultVal": "[1, 2]", "description": "要提取的页码列表（1-based，JSON 数组）" },
+        "output_path": { "type": "input", "defaultVal": "extracted.pdf", "description": "输出 PDF 路径" }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["提取页数", "extracted"]
+      ]
+    },
+    "rotate": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "pages",
+      "description": "旋转指定页面，角度必须是 90 的倍数",
+      "args": {
+        "action": { "type": "static", "value": "rotate", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "pages": { "type": "input", "defaultVal": "[1]", "description": "要旋转的页码列表（1-based，JSON 数组）" },
+        "degrees": {
+          "type": "optional",
+          "options": [["顺时针 90°", "90"], ["180°", "180"], ["逆时针 90°", "270"]],
+          "description": "旋转角度"
+        },
+        "output_path": { "type": "input", "defaultVal": "rotated.pdf", "description": "输出 PDF 路径" }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["旋转页数", "rotated"],
+        ["旋转角度", "degrees"]
+      ]
+    },
+    "reorder": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "pages",
+      "description": "重新排序 PDF 页面，必须提供包含全部页面的完整顺序",
+      "args": {
+        "action": { "type": "static", "value": "reorder", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "pages": { "type": "input", "defaultVal": "[3, 1, 2]", "description": "新页面顺序（1-based，JSON 数组，必须覆盖全部页面）" },
+        "output_path": { "type": "input", "defaultVal": "reordered.pdf", "description": "输出 PDF 路径" }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["重排页数", "reordered"]
+      ]
+    },
+    "insert": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "pages",
+      "description": "在指定位置插入另一个 PDF 的全部页面",
+      "args": {
+        "action": { "type": "static", "value": "insert", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "目标 PDF 路径" },
+        "insert_from_path": { "type": "input", "defaultVal": "", "description": "要插入的 PDF 路径" },
+        "at_page": { "type": "input", "defaultVal": "1", "description": "插入位置（1-based，插入到此页之前，可设为最后一页之后）" },
+        "output_path": { "type": "input", "defaultVal": "inserted.pdf", "description": "输出 PDF 路径" }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["插入页数", "inserted"],
+        ["插入位置", "at_page"],
+        ["总页数", "total_pages"]
+      ]
+    },
+    "remove": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "pages",
+      "description": "删除 PDF 中指定页面",
+      "args": {
+        "action": { "type": "static", "value": "remove", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "pages": { "type": "input", "defaultVal": "[1]", "description": "要删除的页码列表（1-based，JSON 数组）" },
+        "output_path": { "type": "input", "defaultVal": "removed.pdf", "description": "输出 PDF 路径" }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["删除页数", "removed"],
+        ["剩余总页数", "total_pages"]
+      ]
+    },
+    "optimize": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "pages",
+      "description": "压缩/优化 PDF 以减小文件体积",
+      "args": {
+        "action": { "type": "static", "value": "optimize", "description": "命令类型" },
+        "pdf_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "output_path": { "type": "input", "defaultVal": "optimized.pdf", "description": "输出 PDF 路径" },
+        "quality": {
+          "type": "optional",
+          "options": [["最大压缩", "low"], ["均衡（推荐）", "medium"], ["最小压缩", "high"]],
+          "description": "压缩质量"
+        }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["原文件大小", "original_size"],
+        ["优化后大小", "optimized_size"],
+        ["压缩率", "compression_ratio"],
+        ["体积缩减百分比", "size_reduction_percent"]
+      ]
+    },
+
+    "images-to-pdf": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "convert",
+      "description": "将多张图片合并转换为一个 PDF 文件",
+      "args": {
+        "action": { "type": "static", "value": "images-to-pdf", "description": "命令类型" },
+        "image_paths": { "type": "input", "defaultVal": "[\"scan1.jpg\", \"scan2.png\"]", "description": "图片路径列表（JSON 数组）" },
+        "output_path": { "type": "input", "defaultVal": "output.pdf", "description": "输出 PDF 路径" },
+        "page_size": {
+          "type": "optional",
+          "options": [["自适应图片", "auto"], ["A4 纵向", "A4"], ["A4 横向", "A4-landscape"], ["Letter", "Letter"]],
+          "description": "页面尺寸"
+        },
+        "fit": {
+          "type": "optional",
+          "options": [["等比缩放适配", "fit"], ["拉伸填满", "fill"], ["居中不缩放", "center"]],
+          "description": "图片适配方式"
+        }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["图片数量", "image_count"],
+        ["总页数", "page_count"]
+      ]
+    },
+    "export": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "convert",
+      "description": "将 PDF 导出为 Markdown 或 JSON 格式",
+      "args": {
+        "action": { "type": "static", "value": "export", "description": "命令类型" },
+        "pdf_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "output_path": { "type": "input", "defaultVal": "output.md", "description": "输出文件路径" },
+        "format": {
+          "type": "optional",
+          "options": [["Markdown", "markdown"], ["JSON", "json"]],
+          "description": "导出格式"
+        },
+        "pages": { "type": "input", "defaultVal": "", "description": "要导出的页码（JSON 数组，留空表示全部）" },
+        "engine": {
+          "type": "optional",
+          "options": [["自动", "auto"], ["原生文本", "native"], ["OCR 识别", "ocr"]],
+          "description": "文本提取引擎"
+        },
+        "language": { "type": "input", "defaultVal": "eng", "description": "OCR 语言代码" }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["提取引擎", "engine"],
+        ["导出页数", "pages"]
+      ]
+    },
+
+    "get-fields": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "form",
+      "description": "读取 PDF 表单中的所有字段名称和类型",
+      "args": {
+        "action": { "type": "static", "value": "get-fields", "description": "命令类型" },
+        "pdf_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" }
+      },
+      "returns": [
+        ["表单字段（JSON 对象）", "fields"],
+        ["字段数量", "count"]
+      ]
+    },
+    "fill": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "form",
+      "description": "填写标准 PDF 表单（AcroForm），支持一键固化",
+      "args": {
+        "action": { "type": "static", "value": "fill", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "output_path": { "type": "input", "defaultVal": "filled.pdf", "description": "输出 PDF 路径" },
+        "data": { "type": "input", "defaultVal": "{\"Name\": \"张三\"}", "description": "表单数据（JSON 对象）" },
+        "flatten": {
+          "type": "optional",
+          "options": [["不固化", "false"], ["固化（锁定）", "true"]],
+          "description": "是否扁平化"
+        }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["是否已固化", "flattened"],
+        ["填充引擎", "filled_with"],
+        ["匹配字段数", "matched"],
+        ["总字段数", "total"]
+      ]
+    },
+    "fill-any": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "form",
+      "description": "智能填写 PDF 表单，自动检测标签匹配字段（适用于非标准表单）",
+      "args": {
+        "action": { "type": "static", "value": "fill-any", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "output_path": { "type": "input", "defaultVal": "filled.pdf", "description": "输出 PDF 路径" },
+        "data": { "type": "input", "defaultVal": "{\"姓名\": \"张三\", \"邮箱\": \"test@example.com\"}", "description": "表单数据（JSON 对象，自动匹配标签）" },
+        "flatten": {
+          "type": "optional",
+          "options": [["不固化", "false"], ["固化（锁定）", "true"]],
+          "description": "是否扁平化"
+        }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["匹配方式", "fill_method"],
+        ["已填写字段", "filled_fields"],
+        ["未匹配字段", "unmatched_fields"]
+      ]
+    },
+    "create-form": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "form",
+      "description": "创建一个新的带 AcroForm 表单字段的 PDF",
+      "args": {
+        "action": { "type": "static", "value": "create-form", "description": "命令类型" },
+        "output_path": { "type": "input", "defaultVal": "form.pdf", "description": "输出 PDF 路径" },
+        "fields": { "type": "input", "defaultVal": "[{\"name\": \"Name\", \"type\": \"text\", \"rect\": [100, 700, 400, 720]}]", "description": "表单字段定义（JSON 数组，每项含 name/type/rect/page/value/multiline）" },
+        "page_size": {
+          "type": "optional",
+          "options": [["A4", "A4"], ["Letter", "Letter"]],
+          "description": "页面尺寸"
+        },
+        "pages": { "type": "input", "defaultVal": "1", "description": "总页数" }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["创建字段数", "field_count"],
+        ["总页数", "page_count"]
+      ]
+    },
+    "get-form-templates": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "form",
+      "description": "列出所有内置表单模板（发票、合同等常见场景）",
+      "args": {
+        "action": { "type": "static", "value": "get-form-templates", "description": "命令类型" }
+      },
+      "returns": [
+        ["模板列表（JSON 对象，模板名→描述）", "templates"],
+        ["模板数量", "count"]
+      ]
+    },
+    "create-from-template": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "form",
+      "description": "使用内置模板创建 PDF 表单",
+      "args": {
+        "action": { "type": "static", "value": "create-from-template", "description": "命令类型" },
+        "output_path": { "type": "input", "defaultVal": "form.pdf", "description": "输出 PDF 路径" },
+        "template_name": { "type": "input", "defaultVal": "", "description": "模板名称（从 get-form-templates 获取）" }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["使用的模板名", "template_name"],
+        ["模板描述", "template_description"]
+      ]
+    },
+    "flatten": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "form",
+      "description": "扁平化 PDF 表单，移除可编辑字段和注释，变为静态文档",
+      "args": {
+        "action": { "type": "static", "value": "flatten", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "output_path": { "type": "input", "defaultVal": "flattened.pdf", "description": "输出 PDF 路径" }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["固化引擎", "flattened_with"]
+      ]
+    },
+    "clear-fields": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "form",
+      "description": "清空 PDF 表单中已填写的值（保留字段结构，可重新填写）",
+      "args": {
+        "action": { "type": "static", "value": "clear-fields", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "output_path": { "type": "input", "defaultVal": "cleared.pdf", "description": "输出 PDF 路径" },
+        "fields": { "type": "input", "defaultVal": "", "description": "要清空的字段列表（JSON 数组，留空清空全部）" }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["清空的字段数", "cleared"],
+        ["清空的字段列表", "fields"]
+      ]
+    },
+    "detect-fields": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "form",
+      "description": "智能检测 PDF 中可能存在的表单字段（适用于没有 AcroForm 的扫描表单）",
+      "args": {
+        "action": { "type": "static", "value": "detect-fields", "description": "命令类型" },
+        "pdf_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "pages": { "type": "input", "defaultVal": "", "description": "要检测的页码（JSON 数组，留空表示全部）" }
+      },
+      "returns": [
+        ["是否有 AcroForm", "has_acroform"],
+        ["已检测标签数", "total_labels"],
+        ["已检测复选框数", "total_checkboxes"],
+        ["每页检测结果（JSON 数组）", "page_analyses"]
+      ]
+    },
+
+    "add-annotation": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "text",
+      "description": "在 PDF 页面添加 FreeText 文本注释",
+      "args": {
+        "action": { "type": "static", "value": "add-annotation", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "page": { "type": "input", "defaultVal": "1", "description": "页码（1-based）" },
+        "text": { "type": "input", "defaultVal": "注释内容", "description": "注释文本" },
+        "output_path": { "type": "input", "defaultVal": "annotated.pdf", "description": "输出 PDF 路径" },
+        "rect": { "type": "input", "defaultVal": "[100, 500, 400, 520]", "description": "注释区域（JSON 数组 [x1, y1, x2, y2]，留空自动定位）" },
+        "annotation_id": { "type": "input", "defaultVal": "", "description": "注释 ID（留空自动生成，用于后续修改/删除）" }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["注释 ID", "annotation_id"],
+        ["页码", "page"]
+      ]
+    },
+    "update-annotation": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "text",
+      "description": "更新已有 FreeText 注释的内容或位置",
+      "args": {
+        "action": { "type": "static", "value": "update-annotation", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "annotation_id": { "type": "input", "defaultVal": "", "description": "注释 ID（必填）" },
+        "text": { "type": "input", "defaultVal": "修改后的文本", "description": "新文本内容" },
+        "output_path": { "type": "input", "defaultVal": "updated.pdf", "description": "输出 PDF 路径" },
+        "rect": { "type": "input", "defaultVal": "", "description": "新注释区域（JSON 数组 [x1, y1, x2, y2]，留空不改变）" }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["注释 ID", "annotation_id"]
+      ]
+    },
+    "remove-annotation": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "text",
+      "description": "删除指定 FreeText 注释",
+      "args": {
+        "action": { "type": "static", "value": "remove-annotation", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "annotation_id": { "type": "input", "defaultVal": "", "description": "注释 ID（必填）" },
+        "output_path": { "type": "input", "defaultVal": "removed.pdf", "description": "输出 PDF 路径" }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["删除的注释 ID", "annotation_id"]
+      ]
+    },
+    "remove-annotations": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "text",
+      "description": "批量删除指定页面的注释，可按类型过滤",
+      "args": {
+        "action": { "type": "static", "value": "remove-annotations", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "output_path": { "type": "input", "defaultVal": "cleaned.pdf", "description": "输出 PDF 路径" },
+        "pages": { "type": "input", "defaultVal": "", "description": "页码列表（JSON 数组，留空表示全部）" },
+        "subtype": {
+          "type": "optional",
+          "options": [["全部类型", ""], ["FreeText", "FreeText"], ["高亮", "Highlight"], ["便签", "Text"], ["印章", "Stamp"]],
+          "description": "要删除的注释类型"
+        }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["删除的注释数", "removed"]
+      ]
+    },
+    "redact": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "text",
+      "description": "使用正则表达式搜索并永久删除文本（真·红删，不可恢复）",
+      "args": {
+        "action": { "type": "static", "value": "redact", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "output_path": { "type": "input", "defaultVal": "redacted.pdf", "description": "输出 PDF 路径" },
+        "pattern": { "type": "input", "defaultVal": "", "description": "正则表达式模式" },
+        "pages": { "type": "input", "defaultVal": "", "description": "要处理的页码（JSON 数组，留空表示全部）" },
+        "case_insensitive": {
+          "type": "optional",
+          "options": [["区分大小写", "false"], ["忽略大小写", "true"]],
+          "description": "是否忽略大小写"
+        },
+        "whole_words": {
+          "type": "optional",
+          "options": [["匹配子串", "false"], ["仅匹配完整单词", "true"]],
+          "description": "是否仅匹配完整单词"
+        }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["已删除处数", "redacted"],
+        ["处理页数", "pages"]
+      ]
+    },
+    "page-numbers": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "text",
+      "description": "添加页码（FreeText 注释形式）",
+      "args": {
+        "action": { "type": "static", "value": "page-numbers", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "output_path": { "type": "input", "defaultVal": "numbered.pdf", "description": "输出 PDF 路径" },
+        "pages": { "type": "input", "defaultVal": "", "description": "要添加页码的页面（JSON 数组，留空表示全部）" },
+        "start": { "type": "input", "defaultVal": "1", "description": "起始页码数字" },
+        "position": {
+          "type": "optional",
+          "options": [["右下角", "bottom-right"], ["底部居中", "bottom-center"], ["左下角", "bottom-left"]],
+          "description": "页码位置"
+        },
+        "margin": { "type": "input", "defaultVal": "20", "description": "页边距（pt）" }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["添加页码数", "added"]
+      ]
+    },
+    "bates-numbering": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "text",
+      "description": "添加 Bates 编号（法律/财务文档常用编号系统）",
+      "args": {
+        "action": { "type": "static", "value": "bates-numbering", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "output_path": { "type": "input", "defaultVal": "bates.pdf", "description": "输出 PDF 路径" },
+        "prefix": { "type": "input", "defaultVal": "CASE-001", "description": "编号前缀" },
+        "start": { "type": "input", "defaultVal": "1", "description": "起始编号" },
+        "width": { "type": "input", "defaultVal": "6", "description": "编号位数（不足补零）" },
+        "pages": { "type": "input", "defaultVal": "", "description": "要编号的页面（JSON 数组，留空全部）" },
+        "position": {
+          "type": "optional",
+          "options": [["右下角", "bottom-right"], ["底部居中", "bottom-center"], ["左下角", "bottom-left"]],
+          "description": "编号位置"
+        }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["添加编号数", "added"]
+      ]
+    },
+    "watermark": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "text",
+      "description": "添加文本水印（FreeText 注释形式）",
+      "args": {
+        "action": { "type": "static", "value": "watermark", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "output_path": { "type": "input", "defaultVal": "watermarked.pdf", "description": "输出 PDF 路径" },
+        "text": { "type": "input", "defaultVal": "机密", "description": "水印文本" },
+        "pages": { "type": "input", "defaultVal": "", "description": "页码列表（JSON 数组，留空全部）" },
+        "position": {
+          "type": "optional",
+          "options": [["页面中央", "center"], ["左上角", "top-left"], ["右上角", "top-right"]],
+          "description": "水印位置"
+        }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["添加水印数", "added"]
+      ]
+    },
+    "highlight": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "text",
+      "description": "在 PDF 中添加高亮注释，支持文本搜索或矩形区域",
+      "args": {
+        "action": { "type": "static", "value": "highlight", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "output_path": { "type": "input", "defaultVal": "highlighted.pdf", "description": "输出 PDF 路径" },
+        "search_text": { "type": "input", "defaultVal": "", "description": "要高亮的文本（正则搜索）" },
+        "pages": { "type": "input", "defaultVal": "", "description": "页码范围（JSON 数组，留空全部）" }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["高亮标记数", "highlights"]
+      ]
+    },
+    "date-stamp": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "text",
+      "description": "在 PDF 中添加日期戳（FreeText 注释形式）",
+      "args": {
+        "action": { "type": "static", "value": "date-stamp", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "output_path": { "type": "input", "defaultVal": "dated.pdf", "description": "输出 PDF 路径" },
+        "pages": { "type": "input", "defaultVal": "", "description": "页码列表（JSON 数组，留空全部）" },
+        "position": {
+          "type": "optional",
+          "options": [["左上角", "top-left"], ["右上角", "top-right"], ["底部居中", "bottom-center"]],
+          "description": "日期位置"
+        }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["添加的日期", "date"],
+        ["添加页数", "pages_count"]
+      ]
+    },
+    "add-comment": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "text",
+      "description": "添加便签注释（sticky note）到指定页面位置",
+      "args": {
+        "action": { "type": "static", "value": "add-comment", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "output_path": { "type": "input", "defaultVal": "commented.pdf", "description": "输出 PDF 路径" },
+        "page": { "type": "input", "defaultVal": "1", "description": "页码（1-based）" },
+        "content": { "type": "input", "defaultVal": "备注内容", "description": "注释内容" },
+        "rect": { "type": "input", "defaultVal": "[100, 500, 120, 520]", "description": "注释图标位置（JSON 数组 [x1, y1, x2, y2]）" }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["注释 ID", "comment_id"],
+        ["页码", "page"]
+      ]
+    },
+    "update-comment": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "text",
+      "description": "修改已有便签注释的内容",
+      "args": {
+        "action": { "type": "static", "value": "update-comment", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "comment_id": { "type": "input", "defaultVal": "", "description": "注释 ID（必填）" },
+        "content": { "type": "input", "defaultVal": "修改后的备注", "description": "新内容" },
+        "output_path": { "type": "input", "defaultVal": "updated.pdf", "description": "输出 PDF 路径" }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["注释 ID", "comment_id"]
+      ]
+    },
+    "remove-comment": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "text",
+      "description": "删除指定便签注释",
+      "args": {
+        "action": { "type": "static", "value": "remove-comment", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "comment_id": { "type": "input", "defaultVal": "", "description": "注释 ID（必填）" },
+        "output_path": { "type": "input", "defaultVal": "removed.pdf", "description": "输出 PDF 路径" }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["注释 ID", "comment_id"]
+      ]
+    },
+
+    "extract-text": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "extract",
+      "description": "提取 PDF 文本内容，支持多种引擎（原生/OCR/智能混合）和置信度评分",
+      "args": {
+        "action": { "type": "static", "value": "extract-text", "description": "命令类型" },
+        "pdf_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "pages": { "type": "input", "defaultVal": "", "description": "要提取的页码（JSON 数组，留空全部）" },
+        "engine": {
+          "type": "optional",
+          "options": [["自动", "auto"], ["原生文本（快）", "native"], ["智能混合", "smart"], ["OCR", "ocr"], ["强制 OCR", "force_ocr"]],
+          "description": "提取引擎"
+        },
+        "include_confidence": {
+          "type": "optional",
+          "options": [["否", "false"], ["是（返回置信度）", "true"]],
+          "description": "是否包含词级置信度"
+        },
+        "language": { "type": "input", "defaultVal": "eng", "description": "OCR 语言代码（如 eng、chi_sim、eng+chi_sim）" },
+        "dpi": { "type": "input", "defaultVal": "300", "description": "OCR 渲染分辨率" }
+      },
+      "returns": [
+        ["提取文本内容", "text"],
+        ["总页数", "total_pages"],
+        ["总字符数", "total_chars"],
+        ["每页详情", "page_details"]
+      ]
+    },
+    "extract-text-blocks": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "extract",
+      "description": "提取 PDF 文本块及其位置信息，用于文档布局分析和表单字段定位",
+      "args": {
+        "action": { "type": "static", "value": "extract-text-blocks", "description": "命令类型" },
+        "pdf_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "pages": { "type": "input", "defaultVal": "", "description": "要提取的页码（JSON 数组，留空全部）" }
+      },
+      "returns": [
+        ["总页数", "total_pages"],
+        ["每页文本块数据（含 bbox/位置/类型）", "page_blocks"]
+      ]
+    },
+    "extract-tables": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "extract",
+      "description": "提取 PDF 中的表格数据，支持多种检测策略",
+      "args": {
+        "action": { "type": "static", "value": "extract-tables", "description": "命令类型" },
+        "pdf_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "pages": { "type": "input", "defaultVal": "", "description": "要提取的页码（JSON 数组，留空全部）" },
+        "output_format": {
+          "type": "optional",
+          "options": [["列表格式", "list"], ["字典格式（含表头）", "dict"]],
+          "description": "输出格式"
+        },
+        "strategy": {
+          "type": "optional",
+          "options": [["线条检测", "lines"], ["严格线条", "lines_strict"], ["文本定位", "text"]],
+          "description": "表格检测策略"
+        }
+      },
+      "returns": [
+        ["总页数", "total_pages"],
+        ["总表格数", "total_tables"],
+        ["分析页数", "pages_analyzed"],
+        ["每页表格详情（含 bbox/行列/数据）", "page_tables"]
+      ]
+    },
+    "extract-images": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "extract",
+      "description": "提取 PDF 中嵌入的图片并保存到指定目录",
+      "args": {
+        "action": { "type": "static", "value": "extract-images", "description": "命令类型" },
+        "pdf_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "output_dir": { "type": "input", "defaultVal": "./extracted_images", "description": "图片输出目录" },
+        "pages": { "type": "input", "defaultVal": "", "description": "页码（JSON 数组，留空全部）" },
+        "min_width": { "type": "input", "defaultVal": "50", "description": "最小宽度（px），过滤小图标" },
+        "min_height": { "type": "input", "defaultVal": "50", "description": "最小高度（px），过滤小图标" },
+        "image_format": {
+          "type": "optional",
+          "options": [["PNG", "png"], ["JPEG", "jpeg"], ["PPM", "ppm"]],
+          "description": "输出格式"
+        }
+      },
+      "returns": [
+        ["输出目录", "output_dir"],
+        ["提取图片数", "images_extracted"],
+        ["跳过图片数", "images_skipped"],
+        ["图片详情（含页/坐标/尺寸）", "images"]
+      ]
+    },
+    "extract-links": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "extract",
+      "description": "提取 PDF 中所有超链接（URL、内部引用等）",
+      "args": {
+        "action": { "type": "static", "value": "extract-links", "description": "命令类型" },
+        "pdf_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "pages": { "type": "input", "defaultVal": "", "description": "页码（JSON 数组，留空全部）" }
+      },
+      "returns": [
+        ["总页数", "total_pages"],
+        ["链接总数", "total_links"],
+        ["链接详情（含 URL/类型/坐标）", "links"]
+      ]
+    },
+    "detect-barcodes": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "extract",
+      "description": "检测并解码 PDF 中的条形码和二维码",
+      "args": {
+        "action": { "type": "static", "value": "detect-barcodes", "description": "命令类型" },
+        "pdf_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "pages": { "type": "input", "defaultVal": "", "description": "页码（JSON 数组，留空全部）" },
+        "dpi": { "type": "input", "defaultVal": "200", "description": "渲染分辨率" }
+      },
+      "returns": [
+        ["总条码数", "total_barcodes"],
+        ["条码详情（含类型/数据/位置）", "barcodes"]
+      ]
+    },
+
+    "get-metadata": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "metadata",
+      "description": "读取 PDF 元数据（标题、作者、创建时间等）",
+      "args": {
+        "action": { "type": "static", "value": "get-metadata", "description": "命令类型" },
+        "pdf_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "full": {
+          "type": "optional",
+          "options": [["摘要", "false"], ["完整信息", "true"]],
+          "description": "是否返回完整元数据（含 XMP）"
+        }
+      },
+      "returns": [
+        ["元数据（JSON 对象）", "metadata"],
+        ["页数", "page_count"],
+        ["文件大小", "file_size"]
+      ]
+    },
+    "set-metadata": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "metadata",
+      "description": "设置 PDF 元数据（标题、作者、主题、关键词）",
+      "args": {
+        "action": { "type": "static", "value": "set-metadata", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "output_path": { "type": "input", "defaultVal": "meta.pdf", "description": "输出 PDF 路径" },
+        "title": { "type": "input", "defaultVal": "", "description": "标题" },
+        "author": { "type": "input", "defaultVal": "", "description": "作者" },
+        "subject": { "type": "input", "defaultVal": "", "description": "主题" },
+        "keywords": { "type": "input", "defaultVal": "", "description": "关键词" }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["已更新的元数据", "updated_fields"]
+      ]
+    },
+    "sanitize-metadata": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "metadata",
+      "description": "清除 PDF 元数据中的敏感信息（如作者名、修改历史等）",
+      "args": {
+        "action": { "type": "static", "value": "sanitize-metadata", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "output_path": { "type": "input", "defaultVal": "sanitized.pdf", "description": "输出 PDF 路径" }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["已删除的元数据键", "removed_keys"]
+      ]
+    },
+    "detect-type": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "metadata",
+      "description": "分析 PDF 内容类型（纯文本/扫描图片/混合），判断是否有表单、签名等",
+      "args": {
+        "action": { "type": "static", "value": "detect-type", "description": "命令类型" },
+        "pdf_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" }
+      },
+      "returns": [
+        ["PDF 类型", "pdf_type"],
+        ["是否有文本层", "has_text"],
+        ["是否有图片", "has_images"],
+        ["是否有表单", "has_forms"],
+        ["是否有签名", "has_signatures"],
+        ["类型详情（JSON 对象）", "details"]
+      ]
+    },
+
+    "verify-signatures": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "sign",
+      "description": "验证 PDF 中的数字签名是否有效",
+      "args": {
+        "action": { "type": "static", "value": "verify-signatures", "description": "命令类型" },
+        "pdf_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" }
+      },
+      "returns": [
+        ["签名总数", "total_signatures"],
+        ["有效签名数", "valid_signatures"],
+        ["签名详情（JSON 数组）", "signatures"]
+      ]
+    },
+    "sign": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "sign",
+      "description": "使用 PKCS#12/PFX 证书对 PDF 进行数字签名",
+      "args": {
+        "action": { "type": "static", "value": "sign", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "output_path": { "type": "input", "defaultVal": "signed.pdf", "description": "输出 PDF 路径" },
+        "pfx_path": { "type": "input", "defaultVal": "", "description": "PFX/PKCS#12 证书路径" },
+        "pfx_password": { "type": "input", "defaultVal": "", "description": "证书密码" },
+        "field_name": { "type": "input", "defaultVal": "Signature1", "description": "签名字段名" },
+        "certify": {
+          "type": "optional",
+          "options": [["是（认证签名）", "true"], ["否（普通签名）", "false"]],
+          "description": "是否为认证签名"
+        },
+        "reason": { "type": "input", "defaultVal": "", "description": "签名原因" },
+        "location": { "type": "input", "defaultVal": "", "description": "签名地点" },
+        "timestamp_url": { "type": "input", "defaultVal": "", "description": "时间戳服务器 URL（留空不使用）" },
+        "docmdp_permissions": {
+          "type": "optional",
+          "options": [["允许填表", "fill_forms"], ["禁止修改", "no_changes"]],
+          "description": "签名后权限"
+        }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["签名结果", "signature_status"],
+        ["签名字段", "field_name"]
+      ]
+    },
+    "sign-pem": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "sign",
+      "description": "使用 PEM 格式私钥 + 证书链对 PDF 进行数字签名",
+      "args": {
+        "action": { "type": "static", "value": "sign-pem", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "output_path": { "type": "input", "defaultVal": "signed.pdf", "description": "输出 PDF 路径" },
+        "key_path": { "type": "input", "defaultVal": "", "description": "PEM 私钥文件路径" },
+        "cert_path": { "type": "input", "defaultVal": "", "description": "PEM 证书文件路径" },
+        "chain_paths": { "type": "input", "defaultVal": "", "description": "证书链路径（JSON 数组）" },
+        "key_password": { "type": "input", "defaultVal": "", "description": "私钥密码" },
+        "certify": {
+          "type": "optional",
+          "options": [["是", "true"], ["否", "false"]],
+          "description": "是否为认证签名"
+        },
+        "reason": { "type": "input", "defaultVal": "", "description": "签名原因" },
+        "location": { "type": "input", "defaultVal": "", "description": "签名地点" }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["签名结果", "signature_status"]
+      ]
+    },
+    "add-signature-image": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "sign",
+      "description": "在 PDF 上添加手写签名的图片（视觉签名，非数字证书签名）",
+      "args": {
+        "action": { "type": "static", "value": "add-signature-image", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "output_path": { "type": "input", "defaultVal": "signed.pdf", "description": "输出 PDF 路径" },
+        "image_path": { "type": "input", "defaultVal": "", "description": "签名图片路径（PNG/JPG）" },
+        "page": { "type": "input", "defaultVal": "1", "description": "页码（1-based）" },
+        "rect": { "type": "input", "defaultVal": "[100, 500, 300, 550]", "description": "签名位置和大小（JSON 数组 [x1, y1, x2, y2]）" }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["图片引用 ID", "xref"],
+        ["页码", "page"]
+      ]
+    },
+    "update-signature-image": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "sign",
+      "description": "更新或调整已有的签名图片",
+      "args": {
+        "action": { "type": "static", "value": "update-signature-image", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "output_path": { "type": "input", "defaultVal": "updated.pdf", "description": "输出 PDF 路径" },
+        "xref": { "type": "input", "defaultVal": "", "description": "图片引用 ID（必填）" },
+        "rect": { "type": "input", "defaultVal": "[100, 500, 300, 550]", "description": "新位置和大小（JSON 数组 [x1, y1, x2, y2]）" },
+        "image_path": { "type": "input", "defaultVal": "", "description": "替换图片路径（留空不替换）" }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["图片引用 ID", "xref"]
+      ]
+    },
+    "remove-signature-image": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "sign",
+      "description": "删除 PDF 中的签名图片",
+      "args": {
+        "action": { "type": "static", "value": "remove-signature-image", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "output_path": { "type": "input", "defaultVal": "removed.pdf", "description": "输出 PDF 路径" },
+        "xref": { "type": "input", "defaultVal": "", "description": "图片引用 ID（必填）" }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["图片引用 ID", "xref"]
+      ]
+    },
+
+    "encrypt": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "security",
+      "description": "加密（密码保护）PDF，可设置打印/修改/复制等权限",
+      "args": {
+        "action": { "type": "static", "value": "encrypt", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "output_path": { "type": "input", "defaultVal": "encrypted.pdf", "description": "输出 PDF 路径" },
+        "user_password": { "type": "input", "defaultVal": "", "description": "用户密码（必填，打开文档需要）" },
+        "owner_password": { "type": "input", "defaultVal": "", "description": "所有者密码（留空与用户密码相同）" },
+        "allow_printing": {
+          "type": "optional",
+          "options": [["允许", "true"], ["禁止", "false"]],
+          "description": "是否允许打印"
+        },
+        "allow_modifying": {
+          "type": "optional",
+          "options": [["禁止", "false"], ["允许", "true"]],
+          "description": "是否允许修改"
+        },
+        "allow_copying": {
+          "type": "optional",
+          "options": [["禁止", "false"], ["允许", "true"]],
+          "description": "是否允许复制文本"
+        },
+        "allow_form_filling": {
+          "type": "optional",
+          "options": [["允许", "true"], ["禁止", "false"]],
+          "description": "是否允许填写表单"
+        }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["加密算法", "encryption"],
+        ["用户权限", "permissions"]
+      ]
+    },
+    "detect-pii": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "security",
+      "description": "检测 PDF 中的敏感个人信息（邮箱、电话、身份证号、信用卡号）",
+      "args": {
+        "action": { "type": "static", "value": "detect-pii", "description": "命令类型" },
+        "pdf_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "pages": { "type": "input", "defaultVal": "", "description": "要扫描的页码（JSON 数组，留空全部）" }
+      },
+      "returns": [
+        ["扫描页数", "pages_scanned"],
+        ["敏感信息总数", "total_matches"],
+        ["匹配详情（含类型/值/页码）", "matches"]
+      ]
+    },
+
+    "get-ocr-languages": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "ocr",
+      "description": "获取可用的 OCR 语言列表和 Tesseract 安装状态",
+      "args": {
+        "action": { "type": "static", "value": "get-ocr-languages", "description": "命令类型" }
+      },
+      "returns": [
+        ["Tesseract 是否可用", "tesseract_available"],
+        ["可用语言列表", "languages"],
+        ["Tesseract 版本", "tesseract_version"]
+      ]
+    },
+    "get-image-info": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "ocr",
+      "description": "获取 PDF 中图片的信息（不提取图片本身），用于评估 OCR 需求",
+      "args": {
+        "action": { "type": "static", "value": "get-image-info", "description": "命令类型" },
+        "pdf_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "pages": { "type": "input", "defaultVal": "", "description": "页码（JSON 数组，留空全部）" }
+      },
+      "returns": [
+        ["PDF路径", "pdf_path"],
+        ["图片总数量", "total_images"],
+        ["总页数", "total_pages"],
+        ["图片详情（含尺寸/色彩空间/格式）", "image_details"]
+      ]
+    },
+
+    "get-llm-info": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "ai",
+      "description": "获取可用 LLM 后端信息（本地模型/Ollama/OpenAI），用于 AI 驱动的 PDF 处理",
+      "args": {
+        "action": { "type": "static", "value": "get-llm-info", "description": "命令类型" }
+      },
+      "returns": [
+        ["服务版本", "server_version"],
+        ["当前后端", "current_backend"],
+        ["可用后端列表", "available_backends"],
+        ["后端详情（JSON 对象）", "backends"]
+      ]
+    },
+    "auto-fill-form": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "ai",
+      "description": "使用 LLM 自动分析并填写 PDF 表单——传入自然语言描述，AI 自动映射到表单字段",
+      "args": {
+        "action": { "type": "static", "value": "auto-fill-form", "description": "命令类型" },
+        "input_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "output_path": { "type": "input", "defaultVal": "auto-filled.pdf", "description": "输出 PDF 路径" },
+        "instructions": { "type": "input", "defaultVal": "用以下信息填写表单", "description": "自然语言填写说明" },
+        "flatten": {
+          "type": "optional",
+          "options": [["不固化", "false"], ["固化", "true"]],
+          "description": "是否扁平化"
+        },
+        "model": { "type": "input", "defaultVal": "auto", "description": "LLM 模型（auto 表示自动选择）" }
+      },
+      "returns": [
+        ["输出文件路径", "output_path"],
+        ["使用的模型", "model"],
+        ["填写字段数", "fields_filled"],
+        ["AI 字段映射（JSON 对象）", "field_mapping"]
+      ]
+    },
+    "extract-data": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "ai",
+      "description": "使用模式匹配或 LLM 从 PDF 中提取结构化数据（支持护照/MRZ、发票等场景）",
+      "args": {
+        "action": { "type": "static", "value": "extract-data", "description": "命令类型" },
+        "pdf_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "pages": { "type": "input", "defaultVal": "", "description": "页码（JSON 数组，留空全部）" },
+        "schema": {
+          "type": "optional",
+          "options": [["自动检测", "auto"], ["护照/MRZ", "passport"], ["通用键值对", "key_value"]],
+          "description": "提取模式"
+        },
+        "use_llm": {
+          "type": "optional",
+          "options": [["否（纯模式匹配）", "false"], ["是（LLM 辅助）", "true"]],
+          "description": "是否使用 LLM"
+        }
+      },
+      "returns": [
+        ["结构化数据（JSON 对象）", "data"],
+        ["提取方式", "extraction_method"],
+        ["置信度", "confidence"]
+      ]
+    },
+    "analyze-content": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "ai",
+      "description": "使用 LLM 分析 PDF 文档内容——识别文档类型、提取关键实体、生成摘要",
+      "args": {
+        "action": { "type": "static", "value": "analyze-content", "description": "命令类型" },
+        "pdf_path": { "type": "input", "defaultVal": "", "description": "输入 PDF 路径" },
+        "pages": { "type": "input", "defaultVal": "", "description": "页码（JSON 数组，留空全部）" },
+        "analysis_type": {
+          "type": "optional",
+          "options": [["综合", "full"], ["仅摘要", "summary"], ["仅实体", "entities"], ["仅分类", "classification"]],
+          "description": "分析类型"
+        }
+      },
+      "returns": [
+        ["文档类型", "doc_type"],
+        ["摘要", "summary"],
+        ["关键实体（JSON 对象）", "entities"],
+        ["使用的模型", "model"]
+      ]
+    },
+
+    "compare": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "batch",
+      "description": "对比两个 PDF，找出文本和图片差异",
+      "args": {
+        "action": { "type": "static", "value": "compare", "description": "命令类型" },
+        "pdf1_path": { "type": "input", "defaultVal": "", "description": "第一个 PDF 路径" },
+        "pdf2_path": { "type": "input", "defaultVal": "", "description": "第二个 PDF 路径" },
+        "compare_text": {
+          "type": "optional",
+          "options": [["是", "true"], ["否", "false"]],
+          "description": "是否对比文本"
+        },
+        "compare_images": {
+          "type": "optional",
+          "options": [["否", "false"], ["是（较慢）", "true"]],
+          "description": "是否对比图片"
+        }
+      },
+      "returns": [
+        ["是否完全相同", "are_identical"],
+        ["差异列表（JSON 数组）", "differences"],
+        ["差异摘要", "summary"]
+      ]
+    },
+    "batch-process": {
+      "appID": "com.github.hxh230802.pdftool",
+      "openSocketID": "batch",
+      "description": "批处理多个 PDF 文件（获取信息/提取文本/提取链接/优化压缩）",
+      "args": {
+        "action": { "type": "static", "value": "batch-process", "description": "命令类型" },
+        "pdf_paths": { "type": "input", "defaultVal": "[\"a.pdf\", \"b.pdf\"]", "description": "PDF 路径列表（JSON 数组）" },
+        "operation": {
+          "type": "optional",
+          "options": [["获取信息", "get_info"], ["提取文本", "extract_text"], ["提取链接", "extract_links"], ["批量优化", "optimize"]],
+          "description": "批处理操作"
+        },
+        "output_dir": { "type": "input", "defaultVal": "", "description": "输出目录（optimize 操作必填）" }
+      },
+      "returns": [
+        ["操作类型", "operation"],
+        ["总文件数", "total_files"],
+        ["成功数", "successful"],
+        ["失败数", "failed"],
+        ["详细结果（JSON 数组）", "results"]
+      ]
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "app_id": "com.github.hxh230802.pdftool",
+  "plugin_name": "PDF 工具",
+  "author": "HXH",
+  "version": "v1.0.0",
+  "description": "功能全面的 PDF 处理服务，支持页面编辑、格式转换、表单填写、文本标注、元数据管理、数字签名、OCR、AI 分析等 58 种操作",
+  "download_url": "https://github.com/KnotLink-Nodes/PdfTool/releases/latest",
+  "auto_start": "false",
+  "exe_path": "PdfTool\\PdfTool.exe"
+}
